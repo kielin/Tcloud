@@ -4,6 +4,7 @@ import store from '@/store'
 
 // 登陆页
 import login from '@/pages/login'
+import ssoLogin from '@/pages/ssoLogin'
 
 // 总主页
 import index from '@/pages/index'
@@ -90,6 +91,11 @@ let curRoutes = [
     name: 'login',
     component: login
   },
+  {
+    path: '/ssoLogin',
+    name: 'ssoLogin',
+    component: ssoLogin
+  },
   // 403
   {
     path: '/403',
@@ -110,33 +116,33 @@ let curRoutes = [
         component: Center,
         redirect: '/center/proj',
         children: [{
-            path: 'proj',
-            name: 'Proj',
-            component: Proj
-          },
-          {
-            path: 'mine',
-            name: 'mine',
-            component: mine,
-            meta: {
-              active: 'mine',
-              openeds: 'mineManage'
-            }
-          },
-          {
-            path: 'team',
-            name: 'team',
-            component: team
-          },
-          {
-            path: 'property',
-            name: 'property',
-            component: property,
-            meta: {
-              active: 'property',
-              openeds: 'propertyManage'
-            }
+          path: 'proj',
+          name: 'Proj',
+          component: Proj
+        },
+        {
+          path: 'mine',
+          name: 'mine',
+          component: mine,
+          meta: {
+            active: 'mine',
+            openeds: 'mineManage'
           }
+        },
+        {
+          path: 'team',
+          name: 'team',
+          component: team
+        },
+        {
+          path: 'property',
+          name: 'property',
+          component: property,
+          meta: {
+            active: 'property',
+            openeds: 'propertyManage'
+          }
+        }
         ]
       },
       // 云真机(stf)
@@ -150,20 +156,20 @@ let curRoutes = [
           openeds: 'stfManage'
         },
         children: [{
-            path: 'devlist',
-            name: 'DeviceList',
-            component: DeviceList
-          },
-          {
-            path: '/useDevices/:serial',
-            name: 'useDevices',
-            component: useDevices
-          },
-          {
-            path: '/useDetail',
-            name: 'useDetail',
-            component: useDetail
-          },
+          path: 'devlist',
+          name: 'DeviceList',
+          component: DeviceList
+        },
+        {
+          path: '/useDevices/:serial',
+          name: 'useDevices',
+          component: useDevices
+        },
+        {
+          path: '/useDetail',
+          name: 'useDetail',
+          component: useDetail
+        },
         ]
       },
       // 持续集成(ci)
@@ -173,15 +179,15 @@ let curRoutes = [
         component: ci,
         redirect: '/ci/cilist',
         children: [{
-            path: 'cilist',
-            name: 'CiList',
-            component: CiList
-          },
-          {
-            path: '/ci/:jobId/job',
-            name: 'ciedit',
-            component: ciedit,
-          },
+          path: 'cilist',
+          name: 'CiList',
+          component: CiList
+        },
+        {
+          path: '/ci/:jobId/job',
+          name: 'ciedit',
+          component: ciedit,
+        },
         ]
       },
       // 自动化测试(auto) -> 随机测试(random)，测试报告(report)
@@ -192,54 +198,54 @@ let curRoutes = [
         redirect: '/auto/random',
         meta: {},
         children: [{
-            path: 'random',
-            name: 'RandomTest',
-            component: () => import('@/pages/autotest/RandomTest.vue'),
-            meta: {
-              active: 'random',
-              breadTextOne: 'monkey测试',
-              breadTextTwo: '随机测试'
-            }
-          },
-          {
-            path: 'report',
-            name: 'TestReport',
-            component: () => import('@/pages/autotest/TestReport.vue'),
-            meta: {
-              active: 'report',
-              breadTextOne: 'monkey测试',
-              breadTextTwo: '随机测试报告'
-            }
-          },
-          {
-            path: 'pertest',
-            name: 'PerTest',
-            component: () => import('@/pages/autotest/PerTest.vue'),
-            meta: {
-              active: 'pertest',
-              breadTextOne: 'APP性能测试',
-              breadTextTwo: '性能测试'
-            }
-          },
-          {
-            path: 'perReport',
-            name: 'PerReport',
-            component: () => import('@/pages/autotest/PerReport.vue'),
-            meta: {
-              active: 'perReport',
-              breadTextOne: 'APP性能测试',
-              breadTextTwo: '性能测试报告'
-            }
-          },
-          {
-            path: 'chart',
-            name: 'AutoChart',
-            component: () => import('@/pages/autotest/AutoChart.vue'),
-            meta: {
-              active: 'chart',
-              breadTextOne: '测评数据'
-            }
+          path: 'random',
+          name: 'RandomTest',
+          component: () => import('@/pages/autotest/RandomTest.vue'),
+          meta: {
+            active: 'random',
+            breadTextOne: 'monkey测试',
+            breadTextTwo: '随机测试'
           }
+        },
+        {
+          path: 'report',
+          name: 'TestReport',
+          component: () => import('@/pages/autotest/TestReport.vue'),
+          meta: {
+            active: 'report',
+            breadTextOne: 'monkey测试',
+            breadTextTwo: '随机测试报告'
+          }
+        },
+        {
+          path: 'pertest',
+          name: 'PerTest',
+          component: () => import('@/pages/autotest/PerTest.vue'),
+          meta: {
+            active: 'pertest',
+            breadTextOne: 'APP性能测试',
+            breadTextTwo: '性能测试'
+          }
+        },
+        {
+          path: 'perReport',
+          name: 'PerReport',
+          component: () => import('@/pages/autotest/PerReport.vue'),
+          meta: {
+            active: 'perReport',
+            breadTextOne: 'APP性能测试',
+            breadTextTwo: '性能测试报告'
+          }
+        },
+        {
+          path: 'chart',
+          name: 'AutoChart',
+          component: () => import('@/pages/autotest/AutoChart.vue'),
+          meta: {
+            active: 'chart',
+            breadTextOne: '测评数据'
+          }
+        }
         ]
       },
       // 小工具(tool)
@@ -261,29 +267,29 @@ let curRoutes = [
         redirect: '/mail/all',
         component: () => import('@/pages/mail/Index.vue'),
         children: [{
-            path: 'all',
-            name: 'MailAll',
-            component: () => import('@/pages/mail/MailAll.vue'),
-            meta: {
-              defaultActive: 'all'
-            }
-          },
-          {
-            path: 'unread',
-            name: 'MailUnread',
-            component: () => import('@/pages/mail/MailUnread.vue'),
-            meta: {
-              defaultActive: 'unread'
-            }
-          },
-          {
-            path: 'hasread',
-            name: 'MailHasRead',
-            component: () => import('@/pages/mail/MailHasRead.vue'),
-            meta: {
-              defaultActive: 'hasread'
-            }
+          path: 'all',
+          name: 'MailAll',
+          component: () => import('@/pages/mail/MailAll.vue'),
+          meta: {
+            defaultActive: 'all'
           }
+        },
+        {
+          path: 'unread',
+          name: 'MailUnread',
+          component: () => import('@/pages/mail/MailUnread.vue'),
+          meta: {
+            defaultActive: 'unread'
+          }
+        },
+        {
+          path: 'hasread',
+          name: 'MailHasRead',
+          component: () => import('@/pages/mail/MailHasRead.vue'),
+          meta: {
+            defaultActive: 'hasread'
+          }
+        }
         ]
       },
       // 修改密码(password)
@@ -303,25 +309,25 @@ let curRoutes = [
         path: '/admin',
         component: admin,
         children: [{
-            path: 'user',
-            name: 'adminUser',
-            component: adminUser
-          },
-          {
-            path: 'user/role',
-            name: 'adminRole',
-            component: adminRole
-          },
-          {
-            path: 'user/add',
-            name: 'adminUserAdd',
-            component: adminUserAdd
-          },
-          {
-            path: 'user/edit/:id',
-            name: 'adminUserEdit',
-            component: adminUserAdd
-          },
+          path: 'user',
+          name: 'adminUser',
+          component: adminUser
+        },
+        {
+          path: 'user/role',
+          name: 'adminRole',
+          component: adminRole
+        },
+        {
+          path: 'user/add',
+          name: 'adminUserAdd',
+          component: adminUserAdd
+        },
+        {
+          path: 'user/edit/:id',
+          name: 'adminUserEdit',
+          component: adminUserAdd
+        },
         ]
       }
     ]
@@ -360,37 +366,37 @@ let curRoutes = [
           active: 'version'
         },
         children: [{
-            path: ':versionId',
-            name: 'versionDetail',
-            component: versionDetail,
-            meta: {
-              active: 'version'
-            }
-          },
-          {
-            path: ':versionId/task/:taskId',
-            name: 'taskCase',
-            component: taskCase,
-            meta: {
-              active: 'version'
-            }
-          },
-          {
-            path: ':versionId/taskResult/:taskId',
-            name: 'taskResult',
-            component: () => import('@/pages/project/version/task/taskResult.vue'),
-            meta: {
-              active: 'version'
-            }
-          },
-          {
-            path: ':versionId/taskcaseDetail/:taskcaseId',
-            name: 'taskcaseDetail',
-            component: taskcaseDetail,
-            meta: {
-              active: 'version'
-            }
-          },
+          path: ':versionId',
+          name: 'versionDetail',
+          component: versionDetail,
+          meta: {
+            active: 'version'
+          }
+        },
+        {
+          path: ':versionId/task/:taskId',
+          name: 'taskCase',
+          component: taskCase,
+          meta: {
+            active: 'version'
+          }
+        },
+        {
+          path: ':versionId/taskResult/:taskId',
+          name: 'taskResult',
+          component: () => import('@/pages/project/version/task/taskResult.vue'),
+          meta: {
+            active: 'version'
+          }
+        },
+        {
+          path: ':versionId/taskcaseDetail/:taskcaseId',
+          name: 'taskcaseDetail',
+          component: taskcaseDetail,
+          meta: {
+            active: 'version'
+          }
+        },
         ]
       },
       // modules
@@ -402,29 +408,29 @@ let curRoutes = [
           active: 'module'
         },
         children: [{
-            path: ':moduleId/case',
-            name: 'caseList',
-            component: caseList,
-            meta: {
-              active: 'module',
-            }
-          },
-          {
-            path: ':moduleId/case/create',
-            name: 'caseAdd',
-            component: caseAdd,
-            meta: {
-              active: 'module',
-            }
-          },
-          {
-            path: ':moduleId/case/update/:caseId',
-            name: 'caseEdit',
-            component: caseAdd,
-            meta: {
-              active: 'module',
-            }
-          },
+          path: ':moduleId/case',
+          name: 'caseList',
+          component: caseList,
+          meta: {
+            active: 'module',
+          }
+        },
+        {
+          path: ':moduleId/case/create',
+          name: 'caseAdd',
+          component: caseAdd,
+          meta: {
+            active: 'module',
+          }
+        },
+        {
+          path: ':moduleId/case/update/:caseId',
+          name: 'caseEdit',
+          component: caseAdd,
+          meta: {
+            active: 'module',
+          }
+        },
         ]
       },
       // issue
@@ -436,21 +442,21 @@ let curRoutes = [
           active: 'issue',
         },
         children: [{
-            path: ':versionId',
-            name: 'issue',
-            component: () => import('@/pages/issue/index.vue'),
-            meta: {
-              active: 'issue',
-            }
-          },
-          {
-            path: ':versionId/issueDetail/:issueId',
-            name: 'issueDetailPage',
-            component: () => import('@/pages/issue/issueDetailPage'),
-            meta: {
-              active: 'issue'
-            }
+          path: ':versionId',
+          name: 'issue',
+          component: () => import('@/pages/issue/index.vue'),
+          meta: {
+            active: 'issue',
           }
+        },
+        {
+          path: ':versionId/issueDetail/:issueId',
+          name: 'issueDetailPage',
+          component: () => import('@/pages/issue/issueDetailPage'),
+          meta: {
+            active: 'issue'
+          }
+        }
         ]
       },
       // requirement
@@ -462,53 +468,53 @@ let curRoutes = [
           active: 'requirement',
         },
         children: [{
-            path: ':requirementClassId',
-            name: 'requirementList',
-            component: requirementList,
-            meta: {
-              active: 'requirement',
-            }
-          },
-          {
-            path: ':requirementClassId/Add',
-            name: 'requirementAdd',
-            component: () => import('@/pages/requirement/add.vue'),
-            meta: {
-              active: 'requirement',
-            }
-          },
-          {
-            path: ':requirementClassId/Edit/:requirementId',
-            name: 'requirementEdit',
-            component:  () => import('@/pages/requirement/add.vue'),
-            meta: {
-              active: 'requirement',
-            }
-          },
-          {
-            path: ':requirementClassId/requirementDetail/:requirementId',
-            name: 'requirementDetail',
-            component: () => import('@/pages/requirement/requirementDetailPage.vue'),
-            meta: {
-              active: 'requirement',
-            }
-          },
-          {
-            path: ':requirementClassId/requirementCase/:requirementId',
-            name: 'requirementCase',
-            component: () => import('@/pages/requirement/rqCase.vue'),
-            meta: {
-              active: 'requirement',
-            }
-          },
-          {
-            path: ':requirementClassId/review',
-            name: 'requirementReview',
-            component: requirementReview,
-            meta: {
-              active: 'requirement',
-            }
+          path: ':requirementClassId',
+          name: 'requirementList',
+          component: requirementList,
+          meta: {
+            active: 'requirement',
           }
+        },
+        {
+          path: ':requirementClassId/Add',
+          name: 'requirementAdd',
+          component: () => import('@/pages/requirement/add.vue'),
+          meta: {
+            active: 'requirement',
+          }
+        },
+        {
+          path: ':requirementClassId/Edit/:requirementId',
+          name: 'requirementEdit',
+          component: () => import('@/pages/requirement/add.vue'),
+          meta: {
+            active: 'requirement',
+          }
+        },
+        {
+          path: ':requirementClassId/requirementDetail/:requirementId',
+          name: 'requirementDetail',
+          component: () => import('@/pages/requirement/requirementDetailPage.vue'),
+          meta: {
+            active: 'requirement',
+          }
+        },
+        {
+          path: ':requirementClassId/requirementCase/:requirementId',
+          name: 'requirementCase',
+          component: () => import('@/pages/requirement/rqCase.vue'),
+          meta: {
+            active: 'requirement',
+          }
+        },
+        {
+          path: ':requirementClassId/review',
+          name: 'requirementReview',
+          component: requirementReview,
+          meta: {
+            active: 'requirement',
+          }
+        }
         ]
       },
       // flow
@@ -520,45 +526,45 @@ let curRoutes = [
           active: 'flow'
         },
         children: [{
-            path: 'add',
-            name: 'flowAdd',
-            component: ()=>import('@/pages/flow/add.vue'),
-            meta: {
-              active: 'flow'
-            }
-          },
-          {
-            path: 'list',
-            name: 'flowList',
-            component: flowList,
-            meta: {
-              active: 'flow'
-            }
-          },
-          {
-            path: 'detail/:flowId',
-            name: 'flowDetail',
-            component: () => import('@/pages/flow/detail.vue'),
-            meta: {
-              active: 'flow'
-            }
-          },
-          {
-            path: 'flowStatistics',
-            name: 'flowStatistics',
-            component: flowStatistics,
-            meta: {
-              active: 'flow'
-            }
-          },
-          {
-            path: 'flowSource',
-            name: 'flowSource',
-            component: () => import('@/pages/flow/personDistribution.vue'),
-            meta: {
-              active: 'flow'
-            }
+          path: 'add',
+          name: 'flowAdd',
+          component: () => import('@/pages/flow/add.vue'),
+          meta: {
+            active: 'flow'
           }
+        },
+        {
+          path: 'list',
+          name: 'flowList',
+          component: flowList,
+          meta: {
+            active: 'flow'
+          }
+        },
+        {
+          path: 'detail/:flowId',
+          name: 'flowDetail',
+          component: () => import('@/pages/flow/detail.vue'),
+          meta: {
+            active: 'flow'
+          }
+        },
+        {
+          path: 'flowStatistics',
+          name: 'flowStatistics',
+          component: flowStatistics,
+          meta: {
+            active: 'flow'
+          }
+        },
+        {
+          path: 'flowSource',
+          name: 'flowSource',
+          component: () => import('@/pages/flow/personDistribution.vue'),
+          meta: {
+            active: 'flow'
+          }
+        }
         ]
       },
       // 接口自动化
@@ -571,148 +577,148 @@ let curRoutes = [
           openeds: 'apiDebug'
         },
         children: [{
-            path: '',
-            components: {
-              Header: Header,
-              Manage: projectManage,
-            },
-            meta: {
-              active: 'manage',
-              title: '首页入口'
-            }
+          path: '',
+          components: {
+            Header: Header,
+            Manage: projectManage,
           },
-          {
-            path: 'projectManage',
-            name: 'projectManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: projectManage,
-            }
+          meta: {
+            active: 'manage',
+            title: '首页入口'
+          }
+        },
+        {
+          path: 'projectManage',
+          name: 'projectManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'modelManage',
-            name: 'modelManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: modelManage,
-            }
+          components: {
+            Header: Header,
+            Manage: projectManage,
+          }
+        },
+        {
+          path: 'modelManage',
+          name: 'modelManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'sceneConfig',
-            name: 'sceneConfig',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: sceneConfig,
-            }
+          components: {
+            Header: Header,
+            Manage: modelManage,
+          }
+        },
+        {
+          path: 'sceneConfig',
+          name: 'sceneConfig',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'caseManage',
-            name: 'caseManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: caseManage,
-            }
+          components: {
+            Header: Header,
+            Manage: sceneConfig,
+          }
+        },
+        {
+          path: 'caseManage',
+          name: 'caseManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'reportManage',
-            name: 'reportManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: reportManage,
-            },
+          components: {
+            Header: Header,
+            Manage: caseManage,
+          }
+        },
+        {
+          path: 'reportManage',
+          name: 'reportManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'reportShow',
-            name: 'reportShow',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: reportHeader,
-              Manage: reportShow,
-            }
+          components: {
+            Header: Header,
+            Manage: reportManage,
           },
-          {
-            path: 'buildInFunc',
-            name: 'buildInFunc',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: ()=>import('@/pages/projectView/buildInFunc/buildInFunc.vue'),
-            }
+        },
+        {
+          path: 'reportShow',
+          name: 'reportShow',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'sceneManage',
-            name: 'sceneManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: sceneManage,
-            }
+          components: {
+            Header: reportHeader,
+            Manage: reportShow,
+          }
+        },
+        {
+          path: 'buildInFunc',
+          name: 'buildInFunc',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'testTool',
-            name: 'testTool',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: testTool,
-            }
+          components: {
+            Header: Header,
+            Manage: () => import('@/pages/projectView/buildInFunc/buildInFunc.vue'),
+          }
+        },
+        {
+          path: 'sceneManage',
+          name: 'sceneManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'userManage',
-            name: 'userManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: user,
-            }
+          components: {
+            Header: Header,
+            Manage: sceneManage,
+          }
+        },
+        {
+          path: 'testTool',
+          name: 'testTool',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
-          {
-            path: 'taskManage',
-            name: 'taskManage',
-            meta: {
-              active: 'manage',
-              requireAuth: true,
-            },
-            components: {
-              Header: Header,
-              Manage: taskManage,
-            }
+          components: {
+            Header: Header,
+            Manage: testTool,
+          }
+        },
+        {
+          path: 'userManage',
+          name: 'userManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
           },
+          components: {
+            Header: Header,
+            Manage: user,
+          }
+        },
+        {
+          path: 'taskManage',
+          name: 'taskManage',
+          meta: {
+            active: 'manage',
+            requireAuth: true,
+          },
+          components: {
+            Header: Header,
+            Manage: taskManage,
+          }
+        },
         ],
       },
       // 埋点管理
@@ -725,29 +731,29 @@ let curRoutes = [
           active: 'track'
         },
         children: [{
-            path: 'sdk',
-            name: 'sdk',
-            component: () => import('@/pages/track/Sdk.vue'),
-            meta: {
-              active: 'track'
-            }
-          },
-          {
-            path: 'report',
-            name: 'trackReport',
-            component: () => import('@/pages/track/Report.vue'),
-            meta: {
-              active: 'track'
-            }
-          },
-          {
-            path: 'track',
-            name: 'track',
-            component: () => import('@/pages/track/Track.vue'),
-            meta: {
-              active: 'track'
-            }
+          path: 'sdk',
+          name: 'sdk',
+          component: () => import('@/pages/track/Sdk.vue'),
+          meta: {
+            active: 'track'
           }
+        },
+        {
+          path: 'report',
+          name: 'trackReport',
+          component: () => import('@/pages/track/Report.vue'),
+          meta: {
+            active: 'track'
+          }
+        },
+        {
+          path: 'track',
+          name: 'track',
+          component: () => import('@/pages/track/Track.vue'),
+          meta: {
+            active: 'track'
+          }
+        }
         ]
       },
       // 项目管理
@@ -760,36 +766,36 @@ let curRoutes = [
           active: 'tag'
         },
         children: [{
-            path: 'tag',
-            name: 'Tag',
-            component: () => import('@/pages/tagManager/Tag.vue'),
-            meta: {
-              active: 'tag'
-            }
-          },{
-            path: 'staff',
-            name: 'Staff',
-            component: () => import('@/pages/tagManager/Staff.vue'),
-            meta: {
-              active: 'tag'
-            }
-          },
-          {
-            path: 'panelset',
-            name: 'panelset',
-            component: () => import('@/pages/tagManager/panelSet.vue'),
-            meta: {
-              active: 'tag'
-            }
-          },
-          {
-            path: 'flowset',
-            name: 'flowset',
-            component: () => import('@/pages/tagManager/flowSet.vue'),
-            meta: {
-              active: 'tag'
-            }
+          path: 'tag',
+          name: 'Tag',
+          component: () => import('@/pages/tagManager/Tag.vue'),
+          meta: {
+            active: 'tag'
           }
+        }, {
+          path: 'staff',
+          name: 'Staff',
+          component: () => import('@/pages/tagManager/Staff.vue'),
+          meta: {
+            active: 'tag'
+          }
+        },
+        {
+          path: 'panelset',
+          name: 'panelset',
+          component: () => import('@/pages/tagManager/panelSet.vue'),
+          meta: {
+            active: 'tag'
+          }
+        },
+        {
+          path: 'flowset',
+          name: 'flowset',
+          component: () => import('@/pages/tagManager/flowSet.vue'),
+          meta: {
+            active: 'tag'
+          }
+        }
         ]
       }
     ]

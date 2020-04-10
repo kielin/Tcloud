@@ -9,6 +9,7 @@ const SET_ROLE = 'SET_ROLE'
 const SET_PICTURE = 'SET_PICTURE'
 
 const COOKIE_EXPIRED = process.env.COOKIE_EXPIRED
+debugger
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN
 const COOKIE_SUFFIX = process.env.COOKIE_SUFFIX
 
@@ -20,7 +21,7 @@ export default {
     userid: 0,
     username: '',
     nickname: '',
-    picture:'',
+    picture: '',
     exp: 0,
     role: [],
     JWT_TOKEN: ''
@@ -30,42 +31,61 @@ export default {
       return state.JWT_TOKEN !== ''
     },
     isAdmin: state => {
-      console.log('userstate',state.role)
+      console.log('userstate', state.role)
       let admin = false
       state.role.forEach(item => {
-        if(item.id == 1){
+        if (item.id == 1) {
           admin = true
         }
       })
-      console.log('admin',admin)
+      console.log('admin', admin)
       return admin
     },
-    userName:state => {
+    userName: state => {
       return state.username
     },
-    userRole:state=>{
+    userRole: state => {
       return state.role
     }
   },
   mutations: {
-    [SET_TOKEN] (state, token) {
-      let decoded = jwtDecode(token)
-      let exp = decoded.exp || 0
-      let EXPIRED = moment.unix(exp).diff(moment().utc(), 'days')
+    [SET_TOKEN](state, token) {
+      debugger
+      // let decoded = jwtDecode(token)
+      // let exp = decoded.exp || 0
+      // let EXPIRED = moment.unix(exp).diff(moment().utc(), 'days')
+
+      let decoded = token
+
+
+      let EXPIRED = moment.unix([2020, 5, 5]).diff(moment().utc(), 'days')
       Cookies.set(JWT_TOKEN, token, {
         expires: EXPIRED,
-        domain: process.env.NODE_ENV === 'development' ? 'localhost' : COOKIE_DOMAIN
+        domain: COOKIE_DOMAIN
+        // domain: process.env.NODE_ENV === 'development' ? 'localhost' : COOKIE_DOMAIN
       })
-      localStorage.setItem('jwtToken',token)
+      localStorage.setItem('jwtToken', token)
       state.userid = decoded.userid || 0
       state.username = decoded.username || ''
       state.nickname = decoded.nickname || ''
       state.picture = decoded.picture || ''
       state.exp = decoded.exp || 0
       state.role = decoded.role || []
+
+      //Ekin   start-----
+      // localStorage.setItem('jwtToken', token)
+      // state.userid = 1 || 0
+      // state.username = token || ''
+      // state.nickname = token || ''
+      // state.picture = ''
+      // state.exp = 0
+      // state.role = ['admin'] || []
+      //Ekin End-----
       state.JWT_TOKEN = token
+
+
     },
-    [CLEAR_TOKEN] (state) {
+    [CLEAR_TOKEN](state) {
       state.userid = 0
       state.username = ''
       state.nickname = ''
@@ -74,7 +94,7 @@ export default {
       state.role = []
       state.JWT_TOKEN = ''
       localStorage.removeItem('jwtToken')
-      Cookies.remove(JWT_TOKEN, process.env.NODE_ENV === 'development' ? {} : {domain: COOKIE_DOMAIN})
+      Cookies.remove(JWT_TOKEN, process.env.NODE_ENV === 'development' ? {} : { domain: COOKIE_DOMAIN })
       //清除存储
       localStorage.removeItem('projectlist');
       localStorage.removeItem('curProject');
@@ -83,7 +103,7 @@ export default {
       localStorage.removeItem('versionList');
       localStorage.removeItem('ossData');
     },
-    [FLASH_TOKEN] (state) {
+    [FLASH_TOKEN](state) {
       let token = Cookies.get(JWT_TOKEN)
       console.log('JWT_TOKEN', JWT_TOKEN, process.env.COOKIE_SUFFIX, token)
       if (token && token !== state.JWT_TOKEN) {
@@ -96,10 +116,10 @@ export default {
         state.JWT_TOKEN = token || ''
       }
     },
-    [SET_ROLE](state,role){
+    [SET_ROLE](state, role) {
       state.role = role
     },
-    [SET_PICTURE](state,picture){
+    [SET_PICTURE](state, picture) {
       state.picture = picture
     }
   },

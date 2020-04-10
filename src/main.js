@@ -7,9 +7,9 @@ import store from './store'
 import ElementUI from 'element-ui'
 import VeLine from 'v-charts/lib/line.common'
 import VeBar from 'v-charts/lib/bar.common'
- 
 
-import { Timeline, Table, Tag,Steps,Progress,Spin } from 'ant-design-vue'
+
+import { Timeline, Table, Tag, Steps, Progress, Spin } from 'ant-design-vue'
 import IconFont from '@/components/IconFont.vue'
 import '@/assets/iconfont/iconfont'
 
@@ -83,7 +83,7 @@ Vue.use(contentmenu);
 // Vue.use(VueClipboard);
 // ================
 Vue.use(base);
-Vue.use(ElementUI, {size: 'mini'})
+Vue.use(ElementUI, { size: 'mini' })
 Vue.component(VeLine.name, VeLine)
 Vue.component(VeBar.name, VeBar)
 
@@ -91,12 +91,14 @@ Vue.component(VeBar.name, VeBar)
 //回到顶部
 
 router.beforeEach((to, from, next) => {
-// 用户信息检测
+  // 用户信息检测
   if (store.getters.isLogin || to.fullPath === '/login') {
     document.body.scrollTop = 0;
     next()
   } else {
+    // window.location.href = 'https://sso.yupaopao.com/cas/login?service=http%3A%2F%2F127.0.0.1%3A5000%2Fcas%2Flogin%2F'
     next('/login')
+    // window.location.href = `https://sso.yupaopao.com/login?service=${client_service}`
   }
 });
 /* eslint-disable no-new */
@@ -104,6 +106,6 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: {App},
+  components: { App },
   template: '<App/>'
 })

@@ -1,14 +1,14 @@
 import instance from '@/api/index.js'
 const urlPrefix = '/v1/'
 export default {
-  doLogin (params) {
+  doLogin(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/login`,
       data: params
     })
   },
-  qywxLogin (code) {
+  qywxLogin(code) {
     return instance({
       method: 'post',
       url: `${urlPrefix}wxlogin/`,
@@ -17,7 +17,7 @@ export default {
       }
     })
   },
-  getUserList (params) {
+  getUserList(params) {
     /*
      获取所有用户
      */
@@ -27,7 +27,7 @@ export default {
       params: params
     })
   },
-  getTestUserList () {
+  getTestUserList() {
     /*
      获取所有角色为测试的用户
      */
@@ -39,7 +39,7 @@ export default {
       }
     })
   },
-  getUserByProject(projectId, params){
+  getUserByProject(projectId, params) {
     /*
      获取项目下所有用户
      */
@@ -61,34 +61,34 @@ export default {
       url: `${urlPrefix}user/project_role_list/${params.id}`
     })
   },
-  addUser (params) {
+  addUser(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/add`,
       data: params
     })
   },
-  editUser (id, params) {
+  editUser(id, params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/${id}`,
       data: params
     })
   },
-  resetPassword (params) {
+  resetPassword(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/resetpassword`,
       data: params
     })
   },
-  deleteUser (params) {
+  deleteUser(params) {
     return instance({
       method: 'delete',
       url: `${urlPrefix}user/${params.id}`
     })
   },
-  userBindRole (userId, roleIds, projectId) {
+  userBindRole(userId, roleIds, projectId) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/userbindroles`,
@@ -99,21 +99,21 @@ export default {
       }
     })
   },
-  addRole (params) {
+  addRole(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}role/`,
       data: params
     })
   },
-  editRole (id, params) {
+  editRole(id, params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}role/${id}`,
       data: params
     })
   },
-  deleteRole (id) {
+  deleteRole(id) {
     return instance({
       method: 'delete',
       url: `${urlPrefix}role/${id}`,
@@ -125,7 +125,7 @@ export default {
       url: `${urlPrefix}user/isresetpassword/${userid}`
     })
   },
-  updateUserName(params){
+  updateUserName(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/name`,
@@ -135,7 +135,7 @@ export default {
   /* 
     获取不属于当前项目的人员列表
   */
-  getNoUser (params) {
+  getNoUser(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/unless/user_list`,
@@ -145,7 +145,7 @@ export default {
   /* 
     在项目中添加人员 
   */
-  addProjectUser (params) {
+  addProjectUser(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/adduser`,
@@ -155,7 +155,7 @@ export default {
   /* 
     从项目中移除人员 
   */
-  removeProjectUser (params) {
+  removeProjectUser(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/detachuser`,
@@ -165,7 +165,7 @@ export default {
   /* 
     获取所有项目  
   */
-  getUserListWhole (params) {
+  getUserListWhole(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/project_role_list`,
@@ -175,7 +175,7 @@ export default {
   /* 
     获取所有人员
   */
-  getAllUser () {
+  getAllUser() {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/all`
@@ -184,7 +184,7 @@ export default {
   /* 
     总人员管理，绑定角色
   */
-  userBindRoleAll (params) {
+  userBindRoleAll(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/userbindall`,
@@ -194,7 +194,7 @@ export default {
   /* 
     获取owner用户所在的项目列表
   */
-  getProjectIds (params) {
+  getProjectIds(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/project/owner_list`,
@@ -204,7 +204,7 @@ export default {
   /*  
     判断在项目中是否显示人员管理
   */
-  isShowStuffAdmin (params) {
+  isShowStuffAdmin(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/manage/isappear`,
@@ -214,21 +214,21 @@ export default {
   /* 
     用户绑定项目
   */
-  userBindProject (params) {
+  userBindProject(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/bindproject`,
       data: params
     })
   },
-  getUserRoleAndProject (params){
+  getUserRoleAndProject(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/gain/roles_projects`,
       params: params
     })
   },
-  updateNickName(params){
+  updateNickName(params) {
     return instance({
       method: 'post',
       url: `${urlPrefix}user/nickname`,
@@ -236,7 +236,7 @@ export default {
     })
   },
   //模糊搜索用户
-  getUserBySearch (params){
+  getUserBySearch(params) {
     return instance({
       method: 'get',
       url: `${urlPrefix}user/search`,

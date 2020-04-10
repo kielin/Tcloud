@@ -5,13 +5,17 @@ const prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   // 接口地址配置
-  BASE_URL: '"http://localhost:9000"',
+  BASE_URL: '"http://192.168.11.55:9000"',
+  // BASE_URL: '"http://10.111.22.246"',
+  // BASE_URL: '"http://192.168.11.129"',
   //ws 服务的地址配置
-  WS_BASE_URL:'"ws://xxxx"',
+  WS_BASE_URL: '"ws://xxxx"',
   //cookie 的过期时间
   COOKIE_EXPIRED: 14,
   //cookie 域名
-  COOKIE_DOMAIN: '"xxxxx"',
+  // COOKIE_DOMAIN: '"http://10.111.22.246"',
+  COOKIE_DOMAIN: '"192.168.11.55"',
+
   //cookie 存储前缀
   COOKIE_SUFFIX: '"_TCLOUD_DEV"',
   //企业微信扫码登录的相关配置

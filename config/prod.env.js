@@ -2,13 +2,15 @@
 module.exports = {
   NODE_ENV: '"production"',
   // 接口地址配置
-  BASE_URL: '"http://localhost:9000"',
+  // BASE_URL: '"http://localhost:9000"',
+  BASE_URL: '"http://10.111.22.246"',
+  // BASE_URL: 'http://192.168.11.129',
   //ws 服务的地址配置
-  WS_BASE_URL:'"ws://xxxx"',
+  WS_BASE_URL: '"ws://xxxx"',
   //cookie 的过期时间
   COOKIE_EXPIRED: 14,
   //cookie 域名
-  COOKIE_DOMAIN: '"xxxxx"',
+  COOKIE_DOMAIN: '"http://10.111.22.246"',
   //cookie 存储前缀
   COOKIE_SUFFIX: '"_TCLOUD_DEV"',
   //企业微信扫码登录的相关配置
