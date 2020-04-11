@@ -51,14 +51,12 @@ export default {
   mutations: {
     [SET_TOKEN](state, token) {
       debugger
-      // let decoded = jwtDecode(token)
-      // let exp = decoded.exp || 0
-      // let EXPIRED = moment.unix(exp).diff(moment().utc(), 'days')
+      let decoded = jwtDecode(token)
+      let exp = decoded.exp || 0
+      let EXPIRED = moment.unix(exp).diff(moment().utc(), 'days')
 
-      let decoded = token
-
-
-      let EXPIRED = moment.unix([2020, 5, 5]).diff(moment().utc(), 'days')
+      // let decoded = token
+      // let EXPIRED = moment.unix([2020, 5, 5]).diff(moment().utc(), 'days')
       Cookies.set(JWT_TOKEN, token, {
         expires: EXPIRED,
         domain: COOKIE_DOMAIN
