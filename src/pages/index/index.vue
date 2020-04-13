@@ -2,7 +2,7 @@
   <div class="common-layout-1">
     <div class="header">
       <router-link :to="{ name: 'index'}" class="logo">
-        <img src="../../assets/img/logo.png" alt="logo">
+        <img src="../../assets/img/ypplogo.png" alt="logo">
         <span>云测平台</span>
       </router-link>
       <ul class="header-nav" v-if="showBar">
@@ -68,7 +68,7 @@
             <i class="fa fa-keyboard-o"></i>反馈
           </p>
         </el-popover>
-        <el-dropdown class="about-us">
+        <!-- <el-dropdown class="about-us">
           <p class="el-dropdown-link">
             <i class="fa fa-weixin"></i>联系我们
           </p>
@@ -81,7 +81,7 @@
               </p>
             </div>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown>-->
         <TopBar></TopBar>
         <el-dropdown class="cur-user">
           <p class="el-dropdown-link login-user">
@@ -409,32 +409,31 @@ export default {
         this.$store.commit("SET_OSS_DATA", data);
       });
     },
-    $resize () {
-      this.winHeight = window.innerHeight - 66;  
+    $resize() {
+      this.winHeight = window.innerHeight - 66;
     }
   },
   created() {
     this.getOssAuth();
     //读取用户信息获取头像
     if (!this.picture) {
-      userApi.getSingleUser({ id: this.userId }).then(res => {
-        let data = res.data.data[0];
-        let picture = data.picture;
-        if (picture) {
-          this.$store.commit("SET_PICTURE", picture);
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+      userApi
+        .getSingleUser({ id: this.userId })
+        .then(res => {
+          let data = res.data.data[0];
+          let picture = data.picture;
+          if (picture) {
+            this.$store.commit("SET_PICTURE", picture);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   mounted() {
     let _this = this;
-    window.addEventListener(
-      "resize",
-      this.$resize,
-      true
-    );
+    window.addEventListener("resize", this.$resize, true);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.$resize);
@@ -554,7 +553,8 @@ export default {
   .logo {
     text-decoration: none;
     img {
-      width: 40px;
+      width: 132px;
+      // height: 30px;
       margin-right: 10px;
       vertical-align: middle;
     }

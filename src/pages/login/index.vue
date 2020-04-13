@@ -4,13 +4,13 @@
       <div id="particles"></div>
       <div class="login" v-loading="loading">
         <div class="login_name">
-          <p>后台管理系统</p>
+          <p>域账号登录</p>
         </div>
         <el-tabs v-model="activeName">
-          <el-tab-pane label="企业微信登录" name="first">
+          <!-- <el-tab-pane label="企业微信登录" name="first">
             <div id="wx_reg"></div>
-          </el-tab-pane>
-          <el-tab-pane label="账号密码登录" name="second">
+          </el-tab-pane>-->
+          <el-tab-pane name="second">
             <el-form
               :model="loginForm"
               :rules="rules"
@@ -36,9 +36,9 @@
               </el-form-item>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane label="SSO" name="third">
+          <!-- <el-tab-pane label="SSO" name="third">
             <el-button type="primary" class="login-btn" @click="ssoLogin">Login with CAS</el-button>
-          </el-tab-pane>
+          </el-tab-pane>-->
         </el-tabs>
       </div>
     </div>
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       loading: false,
-      activeName: "first",
+      activeName: "second",
       winHeight: window.innerHeight,
       loginForm: {
         name: "",
