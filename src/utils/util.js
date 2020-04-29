@@ -1,4 +1,4 @@
-function generateUUID () {
+function generateUUID() {
   let d = new Date().getTime()
   let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     let r = (d + Math.random() * 16) % 16 | 0
@@ -8,7 +8,7 @@ function generateUUID () {
   return uuid
 }
 
-function getSuffix (filename) {
+function getSuffix(filename) {
   var pos = filename.lastIndexOf('.')
   var suffix = ''
   if (pos !== -1) {
@@ -17,7 +17,7 @@ function getSuffix (filename) {
   return suffix
 }
 
-function splitLine (str, symbol) {
+function splitLine(str, symbol) {
   if (!str) {
     return ''
   }
@@ -41,4 +41,4 @@ const checkingParam = (list, vm) => {
   }
   return true
 }
-export {generateUUID, getSuffix, splitLine, checkingParam}
+export { generateUUID, getSuffix, splitLine, checkingParam }

@@ -5,8 +5,9 @@ const prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   // 接口地址配置
-  BASE_URL: '"http://192.168.11.55:9000"',
-  // BASE_URL: '"http://10.111.22.246"',
+  // BASE_URL: '"http://192.168.11.55:9000"',
+  BASE_URL: '"http://10.111.22.246"',
+  DEV_BASE_URL: '"http://10.111.22.246:9099"',
   // BASE_URL: '"http://192.168.11.129"',
   //ws 服务的地址配置
   WS_BASE_URL: '"ws://xxxx"',
@@ -21,5 +22,6 @@ module.exports = merge(prodEnv, {
   //企业微信扫码登录的相关配置
   QYWX_APPID: '"xxxx"',
   QYWX_AGENTID: '"xxxx"',
-  QYEX_REDIRECT_URI: '"xxxx"'
+  QYEX_REDIRECT_URI: '"xxxx"',
+  STF_URL: '"http://192.168.11.42:7100"'
 })

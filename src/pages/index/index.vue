@@ -20,13 +20,13 @@
         >
           <span>云真机</span>
         </router-link>
-        <router-link
+        <!-- <router-link
           :class="{current:(activeLink=='CiList'||activeLink=='ciedit')}"
           tag="li"
           :to="{name:'ci'}"
         >
           <span>持续集成</span>
-        </router-link>
+        </router-link>-->
         <router-link
           :class="{current: activeLink == 'RandomTest' || activeLink == 'TestReport' || activeLink == 'PerTest' || activeLink == 'PerReport' || activeLink == 'AutoChart'}"
           tag="li"
@@ -90,11 +90,11 @@
             <span>{{nickname}}</span>
           </p>
           <el-dropdown-menu slot="dropdown" class="user-action">
-            <el-dropdown-item>
+            <!-- <el-dropdown-item>
               <div @click="changePassword">
                 <i class="fa el-icon-edit"></i>修改密码
               </div>
-            </el-dropdown-item>
+            </el-dropdown-item>-->
             <el-dropdown-item>
               <div @click="toSelfInfo">
                 <i class="fa fa-user"></i>个人信息

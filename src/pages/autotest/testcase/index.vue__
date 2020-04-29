@@ -93,9 +93,7 @@ export default {
     }
   },
   created() {
-    this.$nextTick(() => {
-      this.setDefaultActive();
-    });
+    this.setDefaultActive();
   },
   watch: {
     $route(newVal) {

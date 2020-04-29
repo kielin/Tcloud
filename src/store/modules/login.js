@@ -9,7 +9,6 @@ const SET_ROLE = 'SET_ROLE'
 const SET_PICTURE = 'SET_PICTURE'
 
 const COOKIE_EXPIRED = process.env.COOKIE_EXPIRED
-debugger
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN
 const COOKIE_SUFFIX = process.env.COOKIE_SUFFIX
 
@@ -50,7 +49,7 @@ export default {
   },
   mutations: {
     [SET_TOKEN](state, token) {
-      debugger
+
       let decoded = jwtDecode(token)
       let exp = decoded.exp || 0
       let EXPIRED = moment.unix(exp).diff(moment().utc(), 'days')

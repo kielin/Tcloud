@@ -78,6 +78,9 @@ import testTool from '@/pages/projectView/testTool/testTool.vue'
 import taskManage from '@/pages/projectView/taskManage/task.vue'
 import user from '@/pages/projectView/userManage/user.vue'
 import sceneConfig from '@/pages/projectView/config/config.vue'
+
+
+import autoTestRouter from './modules/autotest'
 // 项目主页 -> 埋点管理 (动态路由引入)
 // 项目主页 -> 项目管理 (动态路由引入)
 
@@ -190,64 +193,9 @@ let curRoutes = [
         },
         ]
       },
-      // 自动化测试(auto) -> 随机测试(random)，测试报告(report)
-      {
-        path: '/auto',
-        name: 'auto',
-        component: () => import('@/pages/autotest/index.vue'),
-        redirect: '/auto/random',
-        meta: {},
-        children: [{
-          path: 'random',
-          name: 'RandomTest',
-          component: () => import('@/pages/autotest/RandomTest.vue'),
-          meta: {
-            active: 'random',
-            breadTextOne: 'monkey测试',
-            breadTextTwo: '随机测试'
-          }
-        },
-        {
-          path: 'report',
-          name: 'TestReport',
-          component: () => import('@/pages/autotest/TestReport.vue'),
-          meta: {
-            active: 'report',
-            breadTextOne: 'monkey测试',
-            breadTextTwo: '随机测试报告'
-          }
-        },
-        {
-          path: 'pertest',
-          name: 'PerTest',
-          component: () => import('@/pages/autotest/PerTest.vue'),
-          meta: {
-            active: 'pertest',
-            breadTextOne: 'APP性能测试',
-            breadTextTwo: '性能测试'
-          }
-        },
-        {
-          path: 'perReport',
-          name: 'PerReport',
-          component: () => import('@/pages/autotest/PerReport.vue'),
-          meta: {
-            active: 'perReport',
-            breadTextOne: 'APP性能测试',
-            breadTextTwo: '性能测试报告'
-          }
-        },
-        {
-          path: 'chart',
-          name: 'AutoChart',
-          component: () => import('@/pages/autotest/AutoChart.vue'),
-          meta: {
-            active: 'chart',
-            breadTextOne: '测评数据'
-          }
-        }
-        ]
-      },
+      // // 自动化测试(auto) -> 随机测试(random)，测试报告(report)
+      autoTestRouter,
+
       // 小工具(tool)
       {
         path: '/tool',

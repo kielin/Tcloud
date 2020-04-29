@@ -22,9 +22,7 @@
       <el-table-column prop="title" label="标题" width="520"></el-table-column>
       <el-table-column prop="module_name" label="所属模块"></el-table-column>
       <el-table-column prop="level" label="测试结果">
-        <template slot-scope="scope">
-          {{taskCaseStatus[scope.row.status]}}
-        </template>
+        <template slot-scope="scope">{{taskCaseStatus[scope.row.status]}}</template>
       </el-table-column>
       <el-table-column prop="handler_name" label="处理人"></el-table-column>
     </el-table>
@@ -52,11 +50,11 @@ export default {
       total: 0,
       tableData: [],
       taskCaseStatus: {
-        '0': '新增',
-        '1': '已删除',
-        '2': '跳过',
-        '3': '通过',
-        '4': '失败'
+        "0": "新增",
+        "1": "已删除",
+        "2": "跳过",
+        "3": "通过",
+        "4": "失败"
       }
     };
   },
@@ -134,9 +132,8 @@ export default {
 
 <style lang="scss" scoped>
 .case-list {
-  .el-table--mini{
+  .el-table--mini {
     font-size: 14px;
   }
 }
-
 </style>

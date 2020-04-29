@@ -71,7 +71,7 @@
             <i class="fa fa-keyboard-o"></i>反馈
           </p>
         </el-popover>
-        <el-dropdown class="about-us">
+        <!-- <el-dropdown class="about-us">
           <p class="el-dropdown-link">
             <i class="fa fa-weixin"></i>联系我们
           </p>
@@ -84,7 +84,7 @@
               </p>
             </div>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown>-->
         <TopBar></TopBar>
         <el-dropdown class="cur-user">
           <p class="el-dropdown-link login-user">
@@ -93,11 +93,11 @@
             <span>{{nickname}}</span>
           </p>
           <el-dropdown-menu slot="dropdown" class="user-action">
-            <el-dropdown-item>
+            <!-- <el-dropdown-item>
               <div @click="changePassword">
                 <i class="fa el-icon-edit"></i>修改密码
               </div>
-            </el-dropdown-item>
+            </el-dropdown-item>-->
             <el-dropdown-item>
               <div @click="toSelfInfo">
                 <i class="fa fa-user"></i>个人信息
@@ -258,9 +258,9 @@ export default {
       }
       return projects;
     },
-    showManage(){
-      return this.$store.state.admin.showManage
-    },
+    showManage() {
+      return this.$store.state.admin.showManage;
+    }
   },
   watch: {
     projectId(val) {
@@ -268,23 +268,25 @@ export default {
         this.$store.commit("SET_CURRENT_PROJECT", "");
         this.$store.commit("SET_USERLIST", []);
         this.$store.commit("SET_VERSION", []);
-        this.$store.commit("SET_PROJECT_SETTINGS",'');
+        this.$store.commit("SET_PROJECT_SETTINGS", "");
         this.getProjectName();
         this.getUserList();
         this.getVesionList();
         this.getOssAuth();
-        this.getProjectSets()
+        this.getProjectSets();
         this.$store.commit("PROJECT_ID", val);
       }
     },
     $route() {
       this.$store.commit("PROJECT_ID", this.projectId);
-      if(this.lastVersion){
-        if(this.showManage){ // 显示人员管理
-              this.$store.commit('ASIDE_HAS_ADMIN', this.lastVersion)
-          } else { // 不显示人员管理
-              this.$store.commit('ASIDE_NO_ADMIN', this.lastVersion)
-          }
+      if (this.lastVersion) {
+        if (this.showManage) {
+          // 显示人员管理
+          this.$store.commit("ASIDE_HAS_ADMIN", this.lastVersion);
+        } else {
+          // 不显示人员管理
+          this.$store.commit("ASIDE_NO_ADMIN", this.lastVersion);
+        }
       }
     },
     sidebarVisible(val) {
@@ -368,16 +370,17 @@ export default {
         this.$store.commit("SET_OSS_DATA", data);
       });
     },
-    getProjectSets(){
-      if(this.proSettings){
-        return false
+    getProjectSets() {
+      if (this.proSettings) {
+        return false;
       }
-      projectApi.getProjectSettings().then(res=>{
-        let data = res.data.data;
-        this.$store.commit("SET_PROJECT_SETTINGS", data);
-      },error=>{
-
-      })
+      projectApi.getProjectSettings().then(
+        res => {
+          let data = res.data.data;
+          this.$store.commit("SET_PROJECT_SETTINGS", data);
+        },
+        error => {}
+      );
     },
     switchProject(id) {
       this.$router.push({
@@ -474,8 +477,8 @@ export default {
     createRequirement() {
       this.requirementAddDrawer = true;
     },
-    $resize () {
-      this.winHeight = window.innerHeight - 66;  
+    $resize() {
+      this.winHeight = window.innerHeight - 66;
     }
   },
   created() {
@@ -485,14 +488,14 @@ export default {
         this.$store.commit("SET_CURRENT_PROJECT", "");
         this.$store.commit("SET_USERLIST", []);
         this.$store.commit("SET_VERSION", []);
-        this.$store.commit("SET_PROJECT_SETTINGS", '');
+        this.$store.commit("SET_PROJECT_SETTINGS", "");
       }
       this.getProjectInfo();
       this.getProjectName();
       this.getUserList();
       this.getVesionList();
       this.getOssAuth();
-      this.getProjectSets()
+      this.getProjectSets();
     }
     this.getSideBarData();
     if (!this.sidebarVisible) {
@@ -501,20 +504,13 @@ export default {
   },
   mounted() {
     let _this = this;
-    
-    window.addEventListener(
-      "resize",
-      this.$resize,
-      true
-    );
+
+    window.addEventListener("resize", this.$resize, true);
     this.curProjectId = this.projectId;
     this.$store.commit("PROJECT_ID", this.projectId); //首次做存储
   },
   beforeDestroy() {
-    window.removeEventListener(
-      "resize",
-      this.$resize
-    );
+    window.removeEventListener("resize", this.$resize);
   }
 };
 </script>
