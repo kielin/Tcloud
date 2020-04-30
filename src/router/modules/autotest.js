@@ -27,24 +27,34 @@ const autoTestRouter = {
       breadTextTwo: '随机测试报告'
     }
   },
+  // {
+  //   path: 'pertest',
+  //   name: 'PerTest',
+  //   component: () => import('@/pages/autotest/PerTest.vue'),
+  //   meta: {
+  //     active: 'pertest',
+  //     breadTextOne: 'APP性能测试',
+  //     breadTextTwo: '性能测试'
+  //   }
+  // },
+  // {
+  //   path: 'perReport',
+  //   name: 'PerReport',
+  //   component: () => import('@/pages/autotest/PerReport.vue'),
+  //   meta: {
+  //     active: 'perReport',
+  //     breadTextOne: 'APP性能测试',
+  //     breadTextTwo: '性能测试报告'
+  //   }
+  // },
+  //App UI 自动化
   {
-    path: 'pertest',
-    name: 'PerTest',
-    component: () => import('@/pages/autotest/PerTest.vue'),
+    path: 'appuitest',
+    name: 'AppUITest',
+    component: () => import('@/pages/autotest/AppUITest.vue'),
     meta: {
-      active: 'pertest',
-      breadTextOne: 'APP性能测试',
-      breadTextTwo: '性能测试'
-    }
-  },
-  {
-    path: 'perReport',
-    name: 'PerReport',
-    component: () => import('@/pages/autotest/PerReport.vue'),
-    meta: {
-      active: 'perReport',
-      breadTextOne: 'APP性能测试',
-      breadTextTwo: '性能测试报告'
+      active: 'appuitest',
+      breadTextOne: 'APP UI 测试',
     }
   },
   {
@@ -88,4 +98,5 @@ const autoTestRouter = {
   }
   ]
 }
+export const autoTestAsiderRouter = [autoTestRouter]
 export default autoTestRouter

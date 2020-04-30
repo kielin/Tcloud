@@ -8,23 +8,7 @@ import ssoLogin from '@/pages/ssoLogin'
 
 // 总主页
 import index from '@/pages/index'
-// 总主页 -> 测试中心
-import Center from '@/pages/index/Center.vue'
-// 总主页 -> 测试中心 -> 项目(proj)，我的(mine)，团队(team)，资产(property)
-import Proj from '@/pages/index/Proj.vue'
-import mine from '@/pages/mine'
-import team from '@/pages/team'
-import property from '@/pages/property'
-// 总主页 -> 云真机
-import stf from '@/pages/stf/index.vue'
-// 总主页 -> 云真机 -> 设备列表(devlist)，使用设备(usedevices)，使用详情(usedetail)
-import DeviceList from '@/pages/stf/DeviceList.vue'
-import useDevices from '@/pages/stf/usedevices.vue'
-import useDetail from '@/pages/stf/usedetail.vue'
-// 总主页 -> 持续集成
-import ci from '@/pages/ci/index.vue'
-import CiList from '@/pages/ci/CiList.vue'
-import ciedit from '@/pages/ci/ciedit.vue'
+
 // 总主页 -> 自动化测试 (动态路由引入)
 // 总主页 -> 小工具
 import tool from '@/pages/tool/index.vue'
@@ -81,9 +65,11 @@ import sceneConfig from '@/pages/projectView/config/config.vue'
 
 
 import autoTestRouter from './modules/autotest'
-// 项目主页 -> 埋点管理 (动态路由引入)
-// 项目主页 -> 项目管理 (动态路由引入)
+import homeRouter from './modules/homepage'
+import stfRouter from './modules/stf'
+import ciRouter from './modules/ci'
 
+// 项目主页 -> 埋点管理 (动态路由引入)
 Vue.use(Router)
 
 
@@ -113,86 +99,11 @@ let curRoutes = [
     redirect: '/center',
     children: [
       // 测试中心(center) -> 项目(proj)，我的(mine)，团队(team)，资产(property)
-      {
-        path: 'center',
-        name: 'Center',
-        component: Center,
-        redirect: '/center/proj',
-        children: [{
-          path: 'proj',
-          name: 'Proj',
-          component: Proj
-        },
-        {
-          path: 'mine',
-          name: 'mine',
-          component: mine,
-          meta: {
-            active: 'mine',
-            openeds: 'mineManage'
-          }
-        },
-        {
-          path: 'team',
-          name: 'team',
-          component: team
-        },
-        {
-          path: 'property',
-          name: 'property',
-          component: property,
-          meta: {
-            active: 'property',
-            openeds: 'propertyManage'
-          }
-        }
-        ]
-      },
+      homeRouter,
       // 云真机(stf)
-      {
-        path: 'stf',
-        name: 'stf',
-        component: stf,
-        redirect: '/stf/devlist',
-        meta: {
-          active: 'stf',
-          openeds: 'stfManage'
-        },
-        children: [{
-          path: 'devlist',
-          name: 'DeviceList',
-          component: DeviceList
-        },
-        {
-          path: '/useDevices/:serial',
-          name: 'useDevices',
-          component: useDevices
-        },
-        {
-          path: '/useDetail',
-          name: 'useDetail',
-          component: useDetail
-        },
-        ]
-      },
+      stfRouter,
       // 持续集成(ci)
-      {
-        path: 'ci',
-        name: 'ci',
-        component: ci,
-        redirect: '/ci/cilist',
-        children: [{
-          path: 'cilist',
-          name: 'CiList',
-          component: CiList
-        },
-        {
-          path: '/ci/:jobId/job',
-          name: 'ciedit',
-          component: ciedit,
-        },
-        ]
-      },
+      ciRouter,
       // // 自动化测试(auto) -> 随机测试(random)，测试报告(report)
       autoTestRouter,
 

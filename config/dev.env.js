@@ -6,8 +6,14 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   // 接口地址配置
   // BASE_URL: '"http://192.168.11.55:9000"',
+  //阿里服务器
   BASE_URL: '"http://10.111.22.246"',
   DEV_BASE_URL: '"http://10.111.22.246:9099"',
+
+  //晓伟
+  // BASE_URL: '"http://192.168.11.214"',
+  // DEV_BASE_URL: '"http://192.168.11.214:9099"',
+
   // BASE_URL: '"http://192.168.11.129"',
   //ws 服务的地址配置
   WS_BASE_URL: '"ws://xxxx"',

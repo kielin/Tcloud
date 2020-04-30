@@ -6,6 +6,7 @@
         <el-step title="上传apk"></el-step>
         <el-step title="选择测试机型"></el-step>
         <el-step title="更多配置"></el-step>
+        <el-step title="选择测试脚本"></el-step>
         <el-step title="提交测试"></el-step>
       </el-steps>
       <div class="random-content">
@@ -13,7 +14,8 @@
         <UploadApk v-show="showTab[1]"></UploadApk>
         <ChooseModel v-show="showTab[2]" @selectModel="selectModel" :current="showTab[2]"></ChooseModel>
         <MoreConfig v-show="showTab[3]"></MoreConfig>
-        <SubmitTest v-show="showTab[4]"></SubmitTest>
+        <ChooseTestScript v-show="showTab[4]"></ChooseTestScript>
+        <SubmitTest v-show="showTab[5]"></SubmitTest>
       </div>
       <el-button style="margin-top: 20px;" v-if="showBack" @click="lastStep">上一步</el-button>
       <el-button
@@ -31,6 +33,7 @@ import UploadApk from "./percomponents/UploadApk";
 import ChooseModel from "./percomponents/ChooseModel";
 import MoreConfig from "./percomponents/MoreConfig";
 import SubmitTest from "./percomponents/SubmitTest";
+import ChooseTestScript from "./percomponents/ChooseTestScript";
 import monkeyApi from "@/api/monkey.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
@@ -71,7 +74,8 @@ export default {
     UploadApk,
     ChooseModel,
     MoreConfig,
-    SubmitTest
+    SubmitTest,
+    ChooseTestScript
   },
   methods: {
     ...mapMutations("autotest", ["setSelectApk"]),
@@ -112,18 +116,19 @@ export default {
     },
     // 下一步
     nextStep() {
-      if (this.activeNum === 2) {
-        // 判断有没有选中安装包
-        if (JSON.stringify(this.selectApk) === "{}") {
-          this.$message.warning("请选择安装包");
-          return;
-        }
-      }
-      if (this.activeNum < 5) {
-        this.activeNum++;
-        this.stepStatus(this.activeNum);
-        return;
-      }
+      // if (this.activeNum === 2) {
+      //   // 判断有没有选中安装包
+      //   if (JSON.stringify(this.selectApk) === "{}") {
+      //     this.$message.warning("请选择安装包");
+      //     return;
+      //   }
+      // }
+      // if (this.activeNum < 5) {
+      //   this.activeNum++;
+      //   this.stepStatus(this.activeNum);
+      //   return;
+      // }
+      this.activeNum++;
       if (this.activeNum === 5) {
         // 调用提交接口
         this.submitTest();
