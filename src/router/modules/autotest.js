@@ -58,6 +58,15 @@ const autoTestRouter = {
     }
   },
   {
+    path: 'uitestReport',
+    name: 'uitestReport',
+    component: () => import('@/pages/autotest/appUIReport.vue'),
+    meta: {
+      active: 'uitestReport',
+      breadTextOne: 'APP UI测试报告',
+    }
+  },
+  {
     path: 'testcase',
     name: 'testCase',
     component: () => import('@/pages/autotest/testcase/listTc.vue'),

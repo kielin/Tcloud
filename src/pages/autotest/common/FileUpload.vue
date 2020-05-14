@@ -101,13 +101,16 @@ export default {
       this.isShowUploadfile = true;
       this.$emit("input", this.uploadfiles);
       // 调用接口，将url传给后台
-      this.$emit('uploadUrl', file)
+      this.$emit("uploadUrl", file);
     },
     // 移除成功的回调
     handleRemove(file, fileList) {
       console.log("remove", file);
       if (this.uploadfiles.findIndex(item => item.uid === file.uid) !== -1) {
-        this.uploadfiles.splice(this.uploadfiles.findIndex(item => item.uid === file.uid), 1);
+        this.uploadfiles.splice(
+          this.uploadfiles.findIndex(item => item.uid === file.uid),
+          1
+        );
       }
     },
     // 预览
@@ -126,13 +129,14 @@ export default {
         }${generateUUID()}${getSuffix(file.name)}`;
         this.isShowUploadfile = false;
       } else {
-        this.$message.warning('暂时只支持android包上传')
-        return false
+        this.$message.warning("暂时只支持android包上传");
+        return false;
       }
     },
     // 文件上传的钩子
     handlerUploadProcess(event, file, fileList) {
       this.fileFlag = true;
+      debugger;
       this.fileUploadPercent = file.percentage.toFixed(0) * 1;
     }
   },

@@ -18,9 +18,9 @@
         text-color="white"
         active-text-color="white"
         :router="true"
-        :default-openeds="['1', '2']"
+        :default-openeds="['3']"
       >
-        <el-submenu index="1">
+        <!-- <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>monkey测试</span>
@@ -33,7 +33,7 @@
             <i class="el-icon-document"></i>
             <span slot="title">测试报告</span>
           </el-menu-item>
-        </el-submenu>
+        </el-submenu>-->
         <!-- <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-mobile-phone"></i>
@@ -57,10 +57,10 @@
             <i class="el-icon-news"></i>
             <span slot="title">UI自动化测试</span>
           </el-menu-item>
-          <!-- <el-menu-item index="appUITest">
+          <el-menu-item index="uitestReport">
             <i class="el-icon-document"></i>
             <span slot="title">UI自动化测试报告</span>
-          </el-menu-item>-->
+          </el-menu-item>
         </el-submenu>
         <el-menu-item index="testcase">
           <i class="el-icon-tickets"></i>
@@ -104,7 +104,6 @@ export default {
     }
   },
   data() {
-    debugger;
     return {
       isCollapse: false,
       defaultActive: "random",
@@ -113,7 +112,6 @@ export default {
     };
   },
   created() {
-    debugger;
     console.log(this.routes);
   },
   methods: {
@@ -123,7 +121,6 @@ export default {
     },
     // 通过当前路由,确定侧边栏active,面包屑文案
     setDefaultActive() {
-      debugger;
       // console.log(autoTestAsiderRouter);
       this.defaultActive = this.$route.meta.active;
       this.breadTextOne = this.$route.meta.breadTextOne;

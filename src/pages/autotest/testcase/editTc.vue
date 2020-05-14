@@ -27,7 +27,9 @@
           <template slot-scope="scope">{{scope.row.operationMethod.actionEnum}}</template>
         </el-table-column>
         <el-table-column label="Operation Node" width="180">
-          <template slot-scope="scope">{{scope.row.operationNode.className}}</template>
+          <template
+            slot-scope="scope"
+          >{{scope.row.operationNode.hasOwnProperty("className")?scope.row.operationNode.className:''}}</template>
         </el-table-column>
         <el-table-column label="Node Type" width="180">
           <editable-cell
@@ -103,6 +105,7 @@ export default {
         .then(res => {
           if (res.data.code == 0 && res.data.data != null) {
             _this.caseDetail = res.data.data;
+            debugger;
             _this.steps = _this.caseDetail.operationLog.steps;
           }
         })

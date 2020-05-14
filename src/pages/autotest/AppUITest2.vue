@@ -2,20 +2,21 @@
   <div class="per-test">
     <el-card class="card-auto" shadow="nerver">
       <el-steps :active="activeNum" align-center>
-        <el-step title="测试方案介绍"></el-step>
-        <el-step title="上传apk"></el-step>
-        <el-step title="选择测试机型"></el-step>
-        <el-step title="更多配置"></el-step>
-        <el-step title="选择测试脚本"></el-step>
-        <el-step title="提交测试" finish-status="success"></el-step>
+        <el-step
+          :title="item.title"
+          :icon="item.icon"
+          @click.native="stepClick(item.index)"
+          v-for="item in stepData"
+          :key="item.index"
+        ></el-step>
       </el-steps>
       <div class="random-content">
-        <Introduce v-show="showTab[0]"></Introduce>
-        <UploadApk v-show="showTab[1]"></UploadApk>
-        <ChooseModel v-show="showTab[2]" @selectModel="selectModel" :current="showTab[2]"></ChooseModel>
-        <MoreConfig v-show="showTab[3]"></MoreConfig>
-        <ChooseTestScript v-show="showTab[4]"></ChooseTestScript>
-        <SubmitTest v-show="showTab[5]"></SubmitTest>
+        <Introduce v-show="activeNum===0"></Introduce>
+        <UploadApk v-show="activeNum===1"></UploadApk>
+        <ChooseModel v-show="activeNum===2" @selectModel="selectModel" :current="activeNum==2"></ChooseModel>
+        <MoreConfig v-show="activeNum===3"></MoreConfig>
+        <ChooseTestScript v-show="activeNum===4"></ChooseTestScript>
+        <SubmitTest v-show="activeNum===5"></SubmitTest>
       </div>
       <el-button style="margin-top: 20px;" v-if="showBack" @click="lastStep">上一步</el-button>
       <el-button
@@ -35,21 +36,31 @@ import MoreConfig from "./percomponents/MoreConfig";
 import SubmitTest from "./percomponents/SubmitTest";
 import ChooseTestScript from "./percomponents/ChooseTestScript";
 import monkeyApi from "@/api/monkey.js";
-import tcApi from "@/api/testcase.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
-      activeNum: 1,
+      stepData: [
+        { index: 0, title: "测试方案介绍", icon: "el-icon-edit" },
+        { index: 1, title: "上传apk", icon: "el-icon-edit" },
+        { index: 2, title: "选择测试机型", icon: "el-icon-edit" },
+        { index: 3, title: "更多配置", icon: "el-icon-edit" },
+        { index: 4, title: "选择测试脚本", icon: "el-icon-edit" },
+        { index: 5, title: "提交测试", icon: "el-icon-edit" }
+      ],
+      activeNum: 0,
       stepText: "下一步",
       canNextStep: true,
-      selectedList: [], // 选中的手机列表
-      stepLen: 6
+      selectedList: [] // 选中的手机列表,
+      // setpLength: this.stepData.length
     };
   },
   computed: {
     nickname() {
       return this.$store.state.login.nickname;
+    },
+    setpLength() {
+      return this.stepData.length;
     },
     ...mapState("autotest", [
       "selectApk",
@@ -61,16 +72,9 @@ export default {
     ]),
     ...mapGetters("autotest", ["getJumpLogin", "getIsInstallApp"]),
     showBack() {
-      return this.activeNum !== 1;
+      return this.activeNum !== 0;
     },
-    showTab() {
-      let arr = [false, false, false, false, false, false];
-      arr.forEach(item => {
-        item = false;
-      });
-      arr[this.activeNum - 1] = true;
-      return arr;
-    },
+
     userId() {
       return this.$store.state.login.userid;
     }
@@ -85,6 +89,11 @@ export default {
   },
   methods: {
     ...mapMutations("autotest", ["setSelectApk"]),
+
+    stepClick(val) {
+      var _that = this;
+      _that.activeNum = val;
+    },
     // 提交测试
     submitTest() {
       let mobileData = JSON.parse(JSON.stringify(this.selectPhoneList));
@@ -101,7 +110,6 @@ export default {
         this.$message.error("未选择测试用例");
         return;
       } else {
-        debugger;
         this.testcaseList.forEach(item => {
           ids.push(item.id);
         });
@@ -119,15 +127,15 @@ export default {
         app_id: this.selectApk.id,
         test_config: this.testConfig,
         testcaseList: ids,
-        executor: this.nickname
+        executer: this.nickname
       };
       console.log(params);
-      tcApi
-        .executeTestcase(params)
+      monkeyApi
+        .submiTest(params, 3)
         .then(res => {
           // 跳转到列表页
           this.$message.success("提交成功");
-          window.location.hash = "#/auto/uitestReport";
+          window.location.hash = "#/auto/appUIReport";
         })
         .catch(err => {
           this.$message.error(err.message);
@@ -135,28 +143,21 @@ export default {
     },
     // 下一步
     nextStep() {
-      if (this.activeNum === 2) {
+      debugger;
+      if (this.activeNum === 1) {
         // 判断有没有选中安装包
         if (JSON.stringify(this.selectApk) === "{}") {
           this.$message.warning("请选择安装包");
           return;
         }
       }
-      if (this.activeNum === 5) {
-        // 判断有没有选中安装包
-        if (this.testcaseList.length === 0) {
-          this.$message.warning("请选择测试用例");
-          return;
-        }
-      }
-      if (this.activeNum < this.stepLen) {
+      if (this.activeNum < this.setpLength + 1) {
         this.activeNum++;
         this.stepStatus(this.activeNum);
         return;
       }
       this.activeNum++;
-      debugger;
-      if (this.activeNum === this.stepLen + 1) {
+      if (this.activeNum === this.setpLength + 1) {
         // 调用提交接口
         this.submitTest();
       }
@@ -170,7 +171,7 @@ export default {
     },
     // 确定按钮状态
     stepStatus(activeNum) {
-      if (this.activeNum === 3) {
+      if (this.activeNum === 2) {
         if (this.selectedList.length === 0) {
           this.stepText = "下一步 [ 请先选择手机 ]";
           this.canNextStep = false;
@@ -178,7 +179,7 @@ export default {
           this.canNextStep = true;
           this.stepText = `下一步 [您已选择${this.selectedList.length}台手机]`;
         }
-      } else if (this.activeNum === this.stepLen) {
+      } else if (this.activeNum === this.setpLength + 1) {
         this.canNextStep = true;
         this.stepText = "提交";
       } else {
@@ -190,7 +191,7 @@ export default {
     selectModel(selectedList) {
       this.selectedList = selectedList;
       console.log(this.selectedList);
-      if (this.activeNum === 3) {
+      if (this.activeNum === 2) {
         if (selectedList.length > 0) {
           this.canNextStep = true;
           this.stepText = `下一步 [您已选择${this.selectedList.length}台手机]`;

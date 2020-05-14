@@ -1,3 +1,5 @@
+import { stat } from "fs";
+
 export default {
   state: {
     selectApk: {}, // 选中的apk
@@ -7,7 +9,8 @@ export default {
     isInstallApp: true,
     jumpLogin: false,
     testType: 1,
-    testConfig: 'qjp_ui/config.json'
+    testConfig: 'qjp_ui/config.json',
+    testcaseList: []
   },
   getters: {
     getIsInstallApp(state) {
@@ -18,6 +21,9 @@ export default {
     }
   },
   mutations: {
+    setTestcaseList(state, data) {
+      state.testcaseList = data
+    },
     setSelectApk(state, data) {
       state.selectApk = data
     },
@@ -39,13 +45,13 @@ export default {
     setTestType(state, data) {
       state.testType = data
     },
-    setTestConfig (state, data) {
+    setTestConfig(state, data) {
       state.testConfig = data
     }
   },
   actions: {
-    test({commit, state}, data) {
-        
+    test({ commit, state }, data) {
+
     }
   },
   namespaced: true

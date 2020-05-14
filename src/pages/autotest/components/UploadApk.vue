@@ -32,7 +32,10 @@
               <el-table-column label="图标" align="center">
                 <template slot-scope="scope">
                   <div style="width: 45px; height: 45px;">
-                    <img :src="scope.row.picture.startsWith('http') ? scope.row.picture : `data:image/png;base64,${scope.row.picture}`" alt>
+                    <img
+                      :src="scope.row.picture.startsWith('http') ? scope.row.picture : `data:image/png;base64,${scope.row.picture}`"
+                      alt
+                    >
                   </div>
                 </template>
               </el-table-column>
@@ -76,7 +79,10 @@
               <el-table-column label="图标" align="center">
                 <template slot-scope="scope">
                   <div style="width: 45px; height: 45px;">
-                    <img :src="scope.row.picture.startsWith('http') ? scope.row.picture : `data:image/png;base64,${scope.row.picture}`" alt>
+                    <img
+                      :src="scope.row.picture.startsWith('http') ? scope.row.picture : `data:image/png;base64,${scope.row.picture}`"
+                      alt
+                    >
                   </div>
                 </template>
               </el-table-column>
@@ -217,14 +223,14 @@ export default {
     },
     // 删除sdk包
     delPackage(row) {
-      this.dialogVisible = true
-      this.rowData = row
+      this.dialogVisible = true;
+      this.rowData = row;
     },
-    delSure () {
+    delSure() {
       monkeyApi
         .delPackage(this.rowData.id)
         .then(res => {
-          this.dialogVisible = false
+          this.dialogVisible = false;
           this.$message.success("删除成功");
           this.getMinePackege();
           this.getAllPackege();
@@ -245,9 +251,7 @@ export default {
     FileUpload
   },
   watch: {
-    uploadFiles(data) {
-      
-    }
+    uploadFiles(data) {}
   },
   created() {
     this.getMinePackege();

@@ -10,9 +10,16 @@ module.exports = merge(prodEnv, {
   BASE_URL: '"http://10.111.22.246"',
   DEV_BASE_URL: '"http://10.111.22.246:9099"',
 
-  //晓伟
+  // //晓伟
   // BASE_URL: '"http://192.168.11.214"',
   // DEV_BASE_URL: '"http://192.168.11.214:9099"',
+
+  // BASE_URL: '"http://192.168.27.98"',
+  // DEV_BASE_URL: '"http://192.168.27.98:9099"',
+
+  //Ekin
+  // BASE_URL: '"http://192.168.11.55"',
+  // DEV_BASE_URL: '"http://192.168.11.55:9099"',
 
   // BASE_URL: '"http://192.168.11.129"',
   //ws 服务的地址配置
@@ -29,5 +36,7 @@ module.exports = merge(prodEnv, {
   QYWX_APPID: '"xxxx"',
   QYWX_AGENTID: '"xxxx"',
   QYEX_REDIRECT_URI: '"xxxx"',
-  STF_URL: '"http://192.168.11.42:7100"'
+  // STF_URL: '"http://192.168.11.207:7100"'
+  STF_URL: '"http://192.168.11.252:7100"'
+
 })

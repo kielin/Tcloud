@@ -23,7 +23,6 @@ export default {
     })
   },
 
-
   //update
   updateTcById(params) {
     return instance({
@@ -31,6 +30,14 @@ export default {
       url: `${urlPrefix}solopi2/modify_caseinfo`,
       data: params
     })
-  }
+  },
+  executeTestcase(params) {
+    return instance({
+      method: 'post',
+      url: `${urlPrefix}solopi1/make_execute_data`,
+      data: params
+
+    })
+  },
 
 }

@@ -53,12 +53,12 @@
       </el-row>
     </div>
     <!-- <div class="case-list"> -->
-    <el-table :data="tcList">
-      <el-table-column type="selection" width="55"></el-table-column>
+    <el-table :data="tcList" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" v-if="showSelection"></el-table-column>
       <el-table-column prop="id" label="ID" width="180"></el-table-column>
       <el-table-column prop="project" label="产品" width="180"></el-table-column>
       <el-table-column prop="case_name" label="名称" width="180"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" v-if="showOperation">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
             <!-- <router-link :to="'/testcase/' + scope.row.project + '/'+ scope.row.id"> -->
@@ -83,38 +83,31 @@
     </el-table>
   </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
 import util from "@/utils/utilnew.js";
 import CaseList from "@/pages/mine/CaseList";
-import tcApi from "@/api/testcase";
+import tcApi from "@/api/testcase.js";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "testcaseList",
   components: { CaseList },
+  computed: {
+    ...mapState("autotest", ["testcaseList"])
+  },
+  props: {
+    showSelection: {
+      type: Boolean,
+      default: false
+    },
+    showOperation: {
+      type: Boolean,
+      default: true
+    }
+  },
+
   data() {
     return {
-      // tableData: [
-      //   {
-      //     date: "2016-05-02",
-      //     name: "王小虎",
-      //     address: "上海市普陀区金沙江路 1518 弄"
-      //   },
-      //   {
-      //     date: "2016-05-04",
-      //     name: "王小虎",
-      //     address: "上海市普陀区金沙江路 1517 弄"
-      //   },
-      //   {
-      //     date: "2016-05-01",
-      //     name: "王小虎",
-      //     address: "上海市普陀区金沙江路 1519 弄"
-      //   },
-      //   {
-      //     date: "2016-05-03",
-      //     name: "王小虎",
-      //     address: "上海市普陀区金沙江路 1516 弄"
-      //   }
-      // ],
       tcId: "",
       tcName: "",
       project: "",
@@ -123,7 +116,8 @@ export default {
       platformList: util.PLATFORMLIST,
       moduleList: [],
       productList: util.PRODUCTLIST,
-      tcList: []
+      tcList: [],
+      selectedTCList: []
       // [
       //   { id: 72, project: "bixin", case_name: "adsaaaaa" },
       //   { id: 73, project: "bixin", case_name: "bbb" }
@@ -139,6 +133,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations("autotest", ["setTestcaseList"]),
+    handleSelectionChange(val) {
+      this.selectedTCList = val;
+      this.setTestcaseList(this.selectedTCList);
+      console.log(this.selectedTCList);
+    },
     editTc(row) {
       this.$router
         .push({
@@ -175,24 +175,6 @@ export default {
   padding: 10px 10px 10px 0;
 }
 .case-list {
-  // overflow: auto;
-  // margin-left: 30px;
-  // padding: 0px 10px 10px 0;
-  // .case-header {
-  //   display: flex;
-  //   align-items: center;
-  //   margin-bottom: 10px;
-  //   img {
-  //     height: 20px;
-  //     margin-right: 10px;
-  //   }
-  //   .s-module {
-  //     display: flex;
-  //     height: 30px;
-  //     align-items: center;
-  //     width: 375px;
-  //   }
-  // }
 }
 </style>
 

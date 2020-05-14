@@ -238,14 +238,14 @@ export default {
 
     //       生成企业微信登录二维码
     //      console.log("appid", process.env.QYWX_APPID, "agentid", process.env.QYWX_AGENTID, "redirect_uri", process.env.QYEX_REDIRECT_URI)
-    window.WwLogin({
-      id: "wx_reg",
-      appid: process.env.QYWX_APPID,
-      agentid: process.env.QYWX_AGENTID,
-      redirect_uri: process.env.QYEX_REDIRECT_URI,
-      state: "",
-      href: ""
-    });
+    // window.WwLogin({
+    //   id: "wx_reg",
+    //   appid: process.env.QYWX_APPID,
+    //   agentid: process.env.QYWX_AGENTID,
+    //   redirect_uri: process.env.QYEX_REDIRECT_URI,
+    //   state: "",
+    //   href: ""
+    // });
   },
   beforeCreate() {
     if (location.search.indexOf("?") !== -1) {
