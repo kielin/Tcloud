@@ -87,7 +87,7 @@
           show-overflow-tooltip
         >
           <template slot-scope="scope" v-if="scope.row.isPass == 0">
-            <img :src="`${scope.row.replayResult.screenshot}`" height="60" width="60" alt="icon">
+            <img :src="`${scope.row.replayResult.screenshot[0]}`" height="60" width="60" alt="icon">
           </template>
         </el-table-column>
 
@@ -113,7 +113,7 @@
           :height="height"
           append-to-body
         >
-          <img :src="`${this.imgSrc}`" alt="icon" @load="onLoad">
+          <img :src="`${imgSrc}`" alt="icon" @load="onLoad">
         </el-dialog>
       </el-table>
     </el-card>
@@ -197,7 +197,7 @@ export default {
     showFailedImgDialog(row, column, cell, event) {
       if (column.property == "replayResult.screenshot") {
         this.showImg = true;
-        this.imgSrc = row.replayResult.screenshot;
+        this.imgSrc = row.replayResult.screenshot[0];
       }
     },
     hideFailedImgDialog(row, column, cell, event) {
@@ -207,6 +207,7 @@ export default {
     },
     /**计算图片的宽度 */
     onLoad(e) {
+      let _this = this;
       const img = e.target;
       let width = 0;
       let height = 0;
@@ -215,8 +216,8 @@ export default {
         width = img.width + 40;
         height = img.height + 20;
       }
-      this.width = width + "px";
-      this.height = height = "px";
+      _this.width = width + "px";
+      _this.height = height = "px";
     },
     /**set Button type */
     setType(pass) {

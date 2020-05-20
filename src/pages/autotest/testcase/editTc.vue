@@ -29,6 +29,7 @@
         <el-table-column label="Operation Node" width="180">
           <template
             slot-scope="scope"
+            v-if="scope.row.operationNode!=null"
           >{{ scope.row.operationNode.hasOwnProperty("className")?scope.row.operationNode.className:''}}</template>
         </el-table-column>
         <el-table-column label="Node Type" width="180">
@@ -36,6 +37,7 @@
             slot-scope="{row}"
             :can-edit="editGlobalEnabled"
             v-model="row.operationNode.nodeType"
+            v-if="row.operationNode!=null"
           >
             <span slot="content">{{row.operationNode.nodeType}}</span>
           </editable-cell>
@@ -45,6 +47,7 @@
             slot-scope="{row}"
             :can-edit="editGlobalEnabled"
             v-model="row.operationNode.resourceId"
+            v-if="row.operationNode!=null"
           >
             <span slot="content">{{row.operationNode.resourceId}}</span>
           </editable-cell>
@@ -54,6 +57,7 @@
             slot-scope="{row}"
             :can-edit="editGlobalEnabled"
             v-model="row.operationNode.text"
+            v-if="row.operationNode!=null"
           >
             <span slot="content">{{row.operationNode.text}}</span>
           </editable-cell>
@@ -63,6 +67,7 @@
             slot-scope="{row}"
             :can-edit="editGlobalEnabled"
             v-model="row.operationNode.xpath"
+            v-if="row.operationNode!=null"
           >
             <span slot="content">{{row.operationNode.xpath}}</span>
           </editable-cell>
@@ -86,8 +91,7 @@ export default {
       editGlobalEnabled: false,
       id: 0,
       steps: [],
-      caseDetail: {},
-      showOperationNodeCols: true
+      caseDetail: {}
     };
   },
   mounted() {
@@ -107,12 +111,6 @@ export default {
           if (res.data.code == 0 && res.data.data != null) {
             _this.caseDetail = res.data.data;
             _this.steps = _this.caseDetail.operationLog.steps;
-            _this.steps.forEach(item => {
-              if (!item.hasOwnProperty("operationNode")) {
-                _this.showOperationNodeCols = false;
-                return;
-              }
-            });
           }
         })
         .catch(err => {
