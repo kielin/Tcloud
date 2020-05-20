@@ -66,10 +66,10 @@
           <i class="el-icon-tickets"></i>
           <span slot="title">测试用例</span>
         </el-menu-item>
-        <el-menu-item index="chart">
+        <!-- <el-menu-item index="chart">
           <i class="el-icon-edit-outline"></i>
           <span slot="title">测评数据</span>
-        </el-menu-item>
+        </el-menu-item>-->
       </el-menu>
     </el-aside>
     <el-container>

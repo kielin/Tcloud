@@ -24,7 +24,7 @@
         </el-badge>
         <!-- <el-badge :value="12" class="item">
           <i class="fa el-icon-bell"></i>
-        </el-badge> -->
+        </el-badge>-->
         <span>消息通知</span>
       </p>
     </el-popover>
@@ -135,16 +135,18 @@ export default {
     },
     // webSocket
     websocket() {
-      let ws = new WebSocket(`${wsConfig.baseUrl}/v1/ws/message?user=${this.userId}`);
+      let ws = new WebSocket(
+        `${wsConfig.baseUrl}/v1/ws/message?user=${this.userId}`
+      );
       // 建立 web socket 连接成功触发事件
-      ws.onopen = (evt) => {
-        ws.send('success')  // 通知服务端链接成功
+      ws.onopen = evt => {
+        ws.send("success"); // 通知服务端链接成功
       };
       // 接收服务端数据时触发事件
-      ws.onmessage = (evt) => {
-        let data = JSON.parse(evt.data)
+      ws.onmessage = evt => {
+        let data = JSON.parse(evt.data);
         if (data.code === 0) {
-          this.getList() // 未读有变化
+          this.getList(); // 未读有变化
         }
       };
       // web socket 关闭
@@ -154,15 +156,28 @@ export default {
       this.over = () => {
         ws.close();
       };
+    },
+    connectToMobile(url) {
+      var ws = new WebSocket(url);
+      ws.onopen = function() {
+        console.log("ws onopen");
+        ws.send("from client: hello");
+      };
+      ws.onmessage = function(e) {
+        console.log("ws onmessage");
+        console.log("from server: " + e.data);
+      };
     }
   },
   created() {
     // 启动websocket
     this.websocket();
-    this.getList()
+    this.getList();
+    const url = "ws://192.168.11.232:7404/";
+    this.connectToMobile(url);
   },
   watch: {
-    '$route' (val) {
+    $route(val) {
       // this.getList()
     }
   },

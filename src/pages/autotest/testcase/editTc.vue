@@ -29,7 +29,7 @@
         <el-table-column label="Operation Node" width="180">
           <template
             slot-scope="scope"
-          >{{scope.row.operationNode.hasOwnProperty("className")?scope.row.operationNode.className:''}}</template>
+          >{{ scope.row.operationNode.hasOwnProperty("className")?scope.row.operationNode.className:''}}</template>
         </el-table-column>
         <el-table-column label="Node Type" width="180">
           <editable-cell
@@ -86,7 +86,8 @@ export default {
       editGlobalEnabled: false,
       id: 0,
       steps: [],
-      caseDetail: {}
+      caseDetail: {},
+      showOperationNodeCols: true
     };
   },
   mounted() {
@@ -105,8 +106,13 @@ export default {
         .then(res => {
           if (res.data.code == 0 && res.data.data != null) {
             _this.caseDetail = res.data.data;
-            debugger;
             _this.steps = _this.caseDetail.operationLog.steps;
+            _this.steps.forEach(item => {
+              if (!item.hasOwnProperty("operationNode")) {
+                _this.showOperationNodeCols = false;
+                return;
+              }
+            });
           }
         })
         .catch(err => {

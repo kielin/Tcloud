@@ -56,7 +56,8 @@
     "vuedraggable": "^2.18.1",
     "vuescroll": "^4.12.2",
     "vuex": "^2.2.1",
-    "wangeditor": "^3.1.1"
+    "wangeditor": "^3.1.1",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^11.1.0",
