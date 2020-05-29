@@ -74,7 +74,7 @@
             <el-button
               size="small"
               type="danger"
-              @click="deleteTC(scope.row.id)"
+              @click="deleteTC(scope.row)"
               icon="el-icon-delete"
             >删除</el-button>
           </div>
@@ -165,7 +165,21 @@ export default {
         });
     },
     getModuleMapInfo() {},
-    deleteTC() {}
+    deleteTC(row) {
+      let _this = this;
+      let params = { id: row.id };
+      tcApi
+        .deleteTc(params)
+        .then(res => {
+          if (res.status == 200 && res.data.code == 0) {
+            _this.$message.success("已删除用例" + row.id);
+            _this.getTestcaseList();
+          }
+        })
+        .catch(err => {
+          _this.$message.err("删除用例出错：" + err);
+        });
+    }
   }
 };
 </script>

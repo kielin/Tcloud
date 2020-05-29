@@ -60,5 +60,16 @@ export default {
       url: `${urlPrefix}solopi/getDetailResult`,
       data: params
     })
+  },
+
+  /**
+  * 根据testcase id删除
+  */
+  deleteTc(params) {
+    return instance({
+      method: 'post',
+      url: `${urlPrefix}solopi/delete_by_id`,
+      data: params
+    })
   }
 }
