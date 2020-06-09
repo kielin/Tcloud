@@ -36,7 +36,7 @@ module.exports = merge(prodEnv, {
   QYWX_APPID: '"xxxx"',
   QYWX_AGENTID: '"xxxx"',
   QYEX_REDIRECT_URI: '"xxxx"',
-  // STF_URL: '"http://192.168.11.207:7100"'
-  STF_URL: '"http://192.168.11.232:7100"'
+  // STF_URL: '"http://192.168.27.96:7100"',
+  STF_URL: '"http://192.168.11.95:7100"'
 
 })

@@ -195,7 +195,7 @@ export default {
       });
     },
     showFailedImgDialog(row, column, cell, event) {
-      if (column.property == "replayResult.screenshot") {
+      if (column.property == "replayResult.screenshot" && !row.isPass) {
         this.showImg = true;
         this.imgSrc = row.replayResult.screenshot[0];
       }
@@ -211,7 +211,6 @@ export default {
       const img = e.target;
       let width = 0;
       let height = 0;
-      debugger;
       if (img.fileSize > 0 || (img.width > 1 && img.height > 1)) {
         width = img.width + 40;
         height = img.height + 20;

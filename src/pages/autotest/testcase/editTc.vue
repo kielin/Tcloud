@@ -56,10 +56,10 @@
           <editable-cell
             slot-scope="{row}"
             :can-edit="editGlobalEnabled"
-            v-model="row.operationNode.text"
-            v-if="row.operationNode!=null"
+            v-model="row.operationMethod.operationParam.text"
+            v-if="row.operationMethod.actionEnum=='INPUT'"
           >
-            <span slot="content">{{row.operationNode.text}}</span>
+            <span slot="content">{{row.operationMethod.operationParam.text}}</span>
           </editable-cell>
         </el-table-column>
         <el-table-column label="xpath" :show-overflow-tooltip="true">
@@ -123,12 +123,12 @@ export default {
         id: _this.id,
         case_info: JSON.stringify(_this.caseDetail)
       };
-      console.log(params);
+      // console.log(params);
       tcApi
         .updateTcById(params)
         .then(res => {
           if (res.data.code == 0) {
-            editGlobalEnabled = false;
+            _this.editGlobalEnabled = false;
           }
         })
         .catch(err => {

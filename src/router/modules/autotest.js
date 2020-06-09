@@ -5,7 +5,7 @@ const autoTestRouter = {
   path: '/auto',
   name: 'auto',
   component: () => import('@/pages/autotest/index.vue'),
-  redirect: '/auto/random',
+  redirect: '/auto/appuitest',
   meta: {},
   children: [{
     path: 'random',

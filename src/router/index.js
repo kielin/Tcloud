@@ -96,7 +96,8 @@ let curRoutes = [
     path: '/',
     name: 'index',
     component: index,
-    redirect: '/center',
+    // redirect: '/center',
+    redirect: '/auto',
     children: [
       // 测试中心(center) -> 项目(proj)，我的(mine)，团队(team)，资产(property)
       homeRouter,

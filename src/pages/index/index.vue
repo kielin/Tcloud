@@ -6,12 +6,19 @@
         <span>云测平台</span>
       </router-link>
       <ul class="header-nav" v-if="showBar">
-        <router-link
+        <!-- <router-link
           :class="{current:(activeLink=='Proj'||activeLink == 'team'||activeLink == 'property'||activeLink == 'selfPassword'||activeLink == 'mine'||activeLink == 'feedback'||activeLink == 'selfInfo'||activeLink == 'adminUser'||activeLink == 'adminRole')}"
           tag="li"
           :to="{ name: 'index'}"
         >
           <span>测试中心</span>
+        </router-link>-->
+        <router-link
+          :class="{current: activeLink == 'RandomTest' || activeLink == 'TestReport' || activeLink == 'PerTest' || activeLink == 'PerReport' || activeLink == 'AutoChart'}"
+          tag="li"
+          :to="{name:'auto'}"
+        >
+          <span>自动化测试</span>
         </router-link>
         <router-link
           :class="{current:activeLink=='DeviceList' || activeLink=='useDetail' ||  activeLink.indexOf('useDevices') != -1}"
@@ -27,13 +34,7 @@
         >
           <span>持续集成</span>
         </router-link>-->
-        <router-link
-          :class="{current: activeLink == 'RandomTest' || activeLink == 'TestReport' || activeLink == 'PerTest' || activeLink == 'PerReport' || activeLink == 'AutoChart'}"
-          tag="li"
-          :to="{name:'auto'}"
-        >
-          <span>自动化测试</span>
-        </router-link>
+
         <router-link
           :class="{current:(activeLink=='tool'||activeLink=='toolList')}"
           tag="li"
