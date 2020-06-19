@@ -1,7 +1,7 @@
 // 自动化测试(auto) -> 随机测试(random)，测试报告(report)
 // import editTc from '@/pages/autotest/testcase/editTc.vue'
 
-const autoTestRouter = {
+const autoTestRouter = [{
   path: '/auto',
   name: 'auto',
   component: () => import('@/pages/autotest/index.vue'),
@@ -11,6 +11,7 @@ const autoTestRouter = {
     path: 'random',
     name: 'RandomTest',
     component: () => import('@/pages/autotest/RandomTest.vue'),
+    hidden: true,
     meta: {
       active: 'random',
       breadTextOne: 'monkey测试',
@@ -36,9 +37,10 @@ const autoTestRouter = {
       breadTextOne: '订时任务',
     },
     children: [{
-      path: '/auto/scheduleTask/addtask',
+      path: 'addtask',
       name: 'AddTask',
       component: () => import('@/pages/autotest/schedule/addtask.vue'),
+      hidden: true,
       meta: {
         active: 'addtask',
         breadTextOne: '添加任务'
@@ -88,7 +90,7 @@ const autoTestRouter = {
   {
     path: 'testcase',
     name: 'testCase',
-    component: () => import('@/pages/autotest/testcase'),
+    component: () => import('@/pages/autotest/testcase/listTc.vue'),
     // component: () => import('@/pages/module/index.vue'),
     meta: {
       active: 'testcase',
@@ -107,6 +109,7 @@ const autoTestRouter = {
   {
     path: 'edittc',
     name: 'editTc',
+    hidden: true,
     component: () => import('@/pages/autotest/testcase/editTc.vue'),
     meta: {
       active: 'edittc',
@@ -118,6 +121,7 @@ const autoTestRouter = {
   {
     path: 'chart',
     name: 'AutoChart',
+    hidden: true,
     component: () => import('@/pages/autotest/AutoChart.vue'),
     meta: {
       active: 'chart',
@@ -126,5 +130,6 @@ const autoTestRouter = {
   }
   ]
 }
+]
 // export const autoTestAsiderRouter = [autoTestRouter]
 export default autoTestRouter

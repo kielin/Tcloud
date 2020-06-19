@@ -12,12 +12,13 @@ export default {
 
 
   PRODUCTLIST: [
-    { key: 'yuer', name: '鱼耳' },
-    { key: 'bixin', name: '比心' },
-    { key: 'xxq', name: '小星球' },
-    { key: 'common', name: '公共' },
-    { key: 'h5', name: '活动' },
-    { key: 'payment', name: '支付' }
+    { key: "bixin", name: "比心" },
+    { key: "xxq", name: "鱼耳直播" },
+    { key: "yuer", name: "鱼耳" },
+    { key: "common", name: "公共" },
+    { key: "payment", name: "支付" },
+    { key: "h5", name: "活动" },
+    { key: "推荐算法", name: "推荐算法" }
   ],
 
   REPORTTYPELIST: [
@@ -42,7 +43,7 @@ export default {
         case 'bx': return '比心'
         case 'bixin': return '比心'
         case 'yuer': return '鱼耳'
-        case 'xxq': return '小星球'
+        case 'xxq': return '鱼耳直播'
         case 'h5': return '活动'
         case 'common': return '公共服务'
         case 'pay-trade': return '支付中心'

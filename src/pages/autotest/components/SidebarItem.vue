@@ -10,7 +10,7 @@
         >
           <item
             :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)"
-            :title="generateTitle(onlyOneChild.meta.title)"
+            :title="onlyOneChild.meta.breadTextOne"
           />
         </el-menu-item>
       </app-link>
@@ -18,11 +18,7 @@
 
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
       <template slot="title">
-        <item
-          v-if="item.meta"
-          :icon="item.meta && item.meta.icon"
-          :title="generateTitle(item.meta.title)"
-        />
+        <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.breadTextOne"/>
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -71,6 +67,7 @@ export default {
   },
   methods: {
     hasOneShowingChild(children = [], parent) {
+      debugger;
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;

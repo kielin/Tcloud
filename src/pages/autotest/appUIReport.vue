@@ -179,7 +179,7 @@ export default {
               _this.pageSize * _this.pageIndex
             );
           }
-          console.log(_this.resultData);
+          // console.log(_this.resultData);
         }
       });
     },

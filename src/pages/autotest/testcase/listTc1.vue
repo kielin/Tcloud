@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="search-item-container">
+    <testcase-list :showSelection="true"></testcase-list>
+    <!-- <div class="search-item-container">
       <el-row :gutter="3">
         <el-col :xs="24" :sm="12" :md="8" :lg="2" :xl="2">
           <el-select v-model="project" filterable clearable placeholder="产品">
@@ -52,7 +53,7 @@
         </el-col>
       </el-row>
     </div>
-    <!-- <div class="case-list"> -->
+
     <el-table :data="tcList">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="180"></el-table-column>
@@ -61,7 +62,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <div slot="reference" class="name-wrapper">
-            <!-- <router-link :to="'/testcase/' + scope.row.project + '/'+ scope.row.id"> -->
+
             <el-button
               size="small"
               target="_blank"
@@ -69,7 +70,7 @@
               icon="el-icon-edit"
               @click="editTc(scope.row)"
             >编辑</el-button>
-            <!-- </router-link> -->
+       
 
             <el-button
               size="small"
@@ -80,17 +81,18 @@
           </div>
         </template>
       </el-table-column>
-    </el-table>
+    </el-table>-->
   </div>
 </template>
 <script>
 import util from "@/utils/utilnew.js";
 import CaseList from "@/pages/mine/CaseList";
 import tcApi from "@/api/testcase";
+import TestcaseList from "@/pages/autotest/percomponents/listTc";
 
 export default {
   name: "testcaseList",
-  components: { CaseList },
+  components: { TestcaseList },
   data() {
     return {
       // tableData: [

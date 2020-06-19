@@ -1,14 +1,6 @@
 <template>
   <el-container class="container">
-    <!-- <sidebar-item
-      v-for="route in autoTestAsiderRouter"
-      :key="route.path"
-      :item="route"
-      :base-path="route.path"
-    />-->
-    <!-- 侧边栏 -->
-    <!-- :default-active="defaultActive" -->
-    <el-aside class="aside" width="auto">
+    <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         style="border: 0;"
         class="auto-el-menu"
@@ -20,62 +12,14 @@
         :router="true"
         :default-openeds="['3']"
       >
-        <!-- <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>monkey测试</span>
-          </template>
-          <el-menu-item index="random">
-            <i class="el-icon-news"></i>
-            <span slot="title">随机测试</span>
-          </el-menu-item>
-          <el-menu-item index="report">
-            <i class="el-icon-document"></i>
-            <span slot="title">测试报告</span>
-          </el-menu-item>
-        </el-submenu>-->
-        <!-- <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-mobile-phone"></i>
-            <span>APP性能测试</span>
-          </template>
-          <el-menu-item index="pertest">
-            <i class="el-icon-news"></i>
-            <span slot="title">性能测试</span>
-          </el-menu-item>
-          <el-menu-item index="perReport">
-            <i class="el-icon-document"></i>
-            <span slot="title">性能测试报告</span>
-          </el-menu-item>
-        </el-submenu>-->
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-mobile-phone"></i>
-            <span>APP UI自动化测试</span>
-          </template>
-          <el-menu-item index="/auto/appuitest">
-            <i class="el-icon-news"></i>
-            <span slot="title">UI自动化测试</span>
-          </el-menu-item>
-          <el-menu-item index="/auto/uitestReport">
-            <i class="el-icon-document"></i>
-            <span slot="title">UI自动化测试报告</span>
-          </el-menu-item>
-        </el-submenu>
-        <el-menu-item index="/auto/testcase">
-          <i class="el-icon-tickets"></i>
-          <span slot="title">测试用例</span>
-        </el-menu-item>
-        <el-menu-item index="/auto/scheduleTask">
-          <i class="el-icon-alarm-clock"></i>
-          <span slot="title">定时任务</span>
-        </el-menu-item>
-        <!-- <el-menu-item index="chart">
-          <i class="el-icon-edit-outline"></i>
-          <span slot="title">测评数据</span>
-        </el-menu-item>-->
+        <sidebar-item
+          v-for="route in routers"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
-    </el-aside>
+    </el-scrollbar>
     <el-container>
       <!-- 面包屑 -->
       <el-header>
@@ -97,7 +41,7 @@
 </template>
 <script>
 import SidebarItem from "@/pages/autotest/components/SidebarItem.vue";
-// import { autoTestAsiderRouter } from "@/router/modules/autotest.js";
+import autoTestRouter from "@/router/modules/autotest1.js";
 import { mapGetters } from "vuex";
 export default {
   components: { SidebarItem },
@@ -108,7 +52,9 @@ export default {
     }
   },
   data() {
+    debugger;
     return {
+      routers: autoTestRouter,
       isCollapse: false,
       defaultActive: "random",
       breadTextOne: "monkey测试",
@@ -116,6 +62,7 @@ export default {
     };
   },
   created() {
+    debugger;
     console.log(this.routes);
   },
   methods: {

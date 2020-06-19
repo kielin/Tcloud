@@ -53,8 +53,13 @@
       </el-row>
     </div>
     <!-- <div class="case-list"> -->
-    <el-table :data="tcList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" v-if="showSelection"></el-table-column>
+    <el-table
+      ref="tcTable"
+      :row-key="getRowKeys"
+      :data="resultData"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column type="selection" :reserve-selection="true" width="55" v-if="showSelection"></el-table-column>
       <el-table-column prop="id" label="ID" width="180"></el-table-column>
       <el-table-column prop="project" label="产品" width="180"></el-table-column>
       <el-table-column prop="case_name" label="名称" width="180"></el-table-column>
@@ -74,24 +79,34 @@
             <el-button
               size="small"
               type="danger"
-              @click="deleteTC(scope.row.id)"
+              @click="deleteTC(scope.row)"
               icon="el-icon-delete"
             >删除</el-button>
           </div>
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      :current-page="pageIndex"
+      :page-sizes="pageOpts"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="dataCount"
+      @size-change="changePageSize"
+      @current-change="changepage"
+    />
   </div>
 </template>
 <script type="text/ecmascript-6">
 import util from "@/utils/utilnew.js";
 import CaseList from "@/pages/mine/CaseList";
 import tcApi from "@/api/testcase.js";
+import Pagination from "@/components/Pagination";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "testcaseList",
-  components: { CaseList },
+  components: { CaseList, Pagination },
   computed: {
     ...mapState("autotest", ["testcaseList"])
   },
@@ -103,25 +118,46 @@ export default {
     showOperation: {
       type: Boolean,
       default: true
-    }
+    },
+    product: String
+
+    // selectedTCInParent: {
+    //   type: Array,
+    //   default: () => []
+    // }
   },
 
   data() {
     return {
       tcId: "",
       tcName: "",
-      project: "",
+      project: "" | this.product,
       moduleName: "",
       platform: "",
       platformList: util.PLATFORMLIST,
       moduleList: [],
       productList: util.PRODUCTLIST,
       tcList: [],
-      selectedTCList: []
-      // [
-      //   { id: 72, project: "bixin", case_name: "adsaaaaa" },
-      //   { id: 73, project: "bixin", case_name: "bbb" }
-      // ] //{id,content,product,module}
+      selectedTCList: [],
+      resultData: [],
+      idsInParent: [],
+      // total: 0,
+      // listLoading: true,
+      // listQuery: {
+      //   page: 1,
+      //   limit: 10,
+      //   importance: undefined,
+      //   title: undefined,
+      //   type: undefined,
+      //   sort: "+id"
+      // },
+      // 分页相关
+      pageOpts: [10, 20, 50],
+      pageSize: 10,
+      dataCount: 0,
+      pageIndex: 1,
+
+      sliceStart: 0
     };
   },
   created() {
@@ -130,10 +166,49 @@ export default {
   watch: {
     $route(to, from) {
       this.$router.go(0);
+    },
+
+    product: {
+      handler(newVal, oldVal) {
+        this.project = newVal;
+        this.getTestcaseList();
+      },
+      deep: true,
+      immediate: true
     }
+
+    // selectedTCInParent: {
+    //   handler(newVal, oldVal) {
+    //     this.idsInParent = newVal;
+    //     this.getTestcaseList();
+    //   },
+    //   deep: true,
+    //   immediate: true
+    // }
   },
   methods: {
     ...mapMutations("autotest", ["setTestcaseList"]),
+    // handleTCInParent() {
+    //   debugger;
+    //   let _this = this;
+    //   let ids = [];
+    //   if (_this.selectedTCInParent.length != 0) {
+    //     _this.tcList.forEach(item => {
+    //       _this.idsInParent.forEach(s => {
+    //         console.log("item id: " + item.id + " case id:" + s);
+    //         if (s == item.id) {
+    //           ids.push(item);
+    //         }
+    //       });
+    //     });
+
+    //     console.log("already selected:" + ids);
+    //     ids.forEach(row => {
+    //       _this.$refs.tcTable.toggleRowSelection(row, true);
+    //     });
+    //   }
+    // },
+
     handleSelectionChange(val) {
       this.selectedTCList = val;
       this.setTestcaseList(this.selectedTCList);
@@ -158,6 +233,18 @@ export default {
         .then(res => {
           if (res.status == 200 && res.data.code == 0) {
             _this.tcList = res.data.data;
+            // this.handleTCInParent();
+            _this.dataCount = _this.tcList.length;
+            // 分页
+            let sd = _this.tcList;
+            if (sd.length < _this.pageSize) {
+              _this.resultData = sd;
+            } else {
+              _this.resultData = sd.slice(
+                (_this.pageIndex - 1) * _this.pageSize,
+                _this.pageSize * _this.pageIndex
+              );
+            }
           }
         })
         .catch(code => {
@@ -165,7 +252,40 @@ export default {
         });
     },
     getModuleMapInfo() {},
-    deleteTC() {}
+    // deleteTC() {},
+    deleteTC(row) {
+      let _this = this;
+      let params = { id: row.id };
+      tcApi
+        .deleteTc(params)
+        .then(res => {
+          if (res.status == 200 && res.data.code == 0) {
+            _this.$message.success("已删除用例" + row.id);
+            _this.getTestcaseList();
+          }
+        })
+        .catch(err => {
+          _this.$message.err("删除用例出错：" + err);
+        });
+    },
+    getRowKeys(row) {
+      return row.id;
+    },
+    changepage(index) {
+      this.pageIndex = index;
+      var _start = (index - 1) * this.pageSize;
+      var _end = index * this.pageSize;
+      // this.sliceStart = 0;
+      this.resultData = [];
+      this.getTestcaseList();
+    },
+    changePageSize(size) {
+      // 缓存
+      sessionStorage.setItem("pageSize", size);
+      this.pageSize = size;
+      this.resultData = [];
+      this.changepage(1);
+    }
   }
 };
 </script>

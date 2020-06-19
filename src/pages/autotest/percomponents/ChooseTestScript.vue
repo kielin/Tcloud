@@ -2,7 +2,7 @@
   <div class="choose-tc">
     <ArrowContainer head-text="选择测试用例">
       <div slot="content" class="choose-tc-list">
-        <test-case-list :showOperation="false" :showSelection="true"></test-case-list>
+        <testcase-list :showOperation="false" :showSelection="true"></testcase-list>
       </div>
     </ArrowContainer>
     <!-- <ArrowContainer head-text="建议">
@@ -20,10 +20,10 @@
 
 <script>
 import ArrowContainer from "../common/ArrowContainer";
-import TestCaseList from "./listTc";
+import TestcaseList from "./listTc";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
-  components: { ArrowContainer, TestCaseList },
+  components: { ArrowContainer, TestcaseList },
   name: "ChooseTestScript",
 
   data() {
