@@ -10,6 +10,10 @@ function padding(s, len) {
 
 export default {
 
+  convertFirstLettertoUpper(str) {
+    return str.replace(str.charAt(0), str.charAt(0).toUpperCase())
+  },
+
 
   PRODUCTLIST: [
     { key: "bixin", name: "比心" },

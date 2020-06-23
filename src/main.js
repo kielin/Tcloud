@@ -26,6 +26,7 @@ Vue.config.productionTip = false
 import './assets/css/font.css'
 import './assets/css/common.scss'
 import './assets/iconcss/iconfont.css'
+import './assets/customcss/style.css'
 
 
 // =======antd========
