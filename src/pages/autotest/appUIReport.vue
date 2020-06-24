@@ -6,7 +6,7 @@
     <div class="content">
       <div class="container-fluid">
         <el-row :gutter="10">
-          <el-col :span="16">
+          <el-col :span="leftSpan">
             <div class="card mb-3">
               <div class="card-header">
                 <h3>
@@ -101,7 +101,7 @@
         </el-row>
 
         <el-row :gutter="10">
-          <el-col :span="16">
+          <el-col :span="leftSpan">
             <div class="card mb-3">
               <div class="card-header">
                 <h3>
@@ -265,6 +265,7 @@ export default {
       failedStep: 1,
       showMobileInfo: false,
       showStepsInfo: false,
+      leftSpan: 24,
       // 分页相关
       pageOpts: [10, 20, 50],
       pageSize: 10,
@@ -327,6 +328,7 @@ export default {
           _this.deviceInfo = _this.itemDetails[0].replayResult.deviceInfo;
           _this.showMobileInfo = true;
           _this.showStepsInfo = false;
+          _this.leftSpan = 16;
         }
       });
     },
