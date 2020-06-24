@@ -15,7 +15,12 @@
               </div>
 
               <div class="card-body">
-                <el-table :data="resultData" border @row-click="getDetails">
+                <el-table
+                  :data="resultData"
+                  border
+                  @row-click="getDetails"
+                  :highlight-current-row="true"
+                >
                   <el-table-column
                     label="Task"
                     prop="taskId"
@@ -342,7 +347,7 @@ export default {
       // console.log(tc);
     },
     setStepStatus(fStep, curStep) {
-      if (curStep < fStep) {
+      if (curStep < fStep || fStep == -1) {
         return "success";
       } else if (curStep == fStep) {
         return "error";
@@ -405,3 +410,5 @@ export default {
   overflow-y: auto;
 }
 </style>
+
+
