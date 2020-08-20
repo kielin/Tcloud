@@ -45,5 +45,12 @@ export default {
       data: params
 
     })
-  }
+  },
+  executeSchedulerOnce(params) {
+    return instance({
+      method: 'post',
+      url: `${urlPrefix}solopi/job_run`,
+      data: params
+    })
+  },
 }

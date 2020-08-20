@@ -16,7 +16,7 @@ export default {
 
 
   PRODUCTLIST: [
-    { key: "bixin", name: "比心" },
+    { key: "bixin", name: "比心陪练" },
     { key: "xxq", name: "鱼耳直播" },
     { key: "yuer", name: "鱼耳" },
     { key: "common", name: "公共" },
@@ -44,8 +44,8 @@ export default {
   displayCNProdName(prodName) {
     if (prodName) {
       switch (prodName) {
-        case 'bx': return '比心'
-        case 'bixin': return '比心'
+        case 'bx': return '比心陪练'
+        case 'bixin': return '比心陪练'
         case 'yuer': return '鱼耳'
         case 'xxq': return '鱼耳直播'
         case 'h5': return '活动'

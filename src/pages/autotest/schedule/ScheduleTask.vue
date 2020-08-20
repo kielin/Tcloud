@@ -27,14 +27,39 @@
       stripe
       :data="resultData.filter(data => data.creatorName.toLowerCase().includes(search.toLowerCase()))"
     >
-      <el-table-column prop="taskId" label="任务ID" sortable min-width="150"></el-table-column>
+      <el-table-column
+        prop="taskId"
+        label="任务ID"
+        sortable
+        min-width="120"
+        show-overflow-tooltip="true"
+      >
+        <template scope="{row}">
+          <el-button
+            type="text"
+            slot="append"
+            v-clipboard:copy="row.taskId"
+            v-clipboard:success="onCopy"
+          >{{row.taskId}}</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="taskName" label="任务名称" sortable></el-table-column>
       <el-table-column prop="product" label="产品" sortable></el-table-column>
       <el-table-column prop="creatorName" label="创建者" sortable></el-table-column>
       <el-table-column prop="caseIds" label="用例" sortable></el-table-column>
       <el-table-column prop="status" label="状态" sortable>
-        <template slot-scope="scope">{{scope.row.status==1?'正常':'已暂停'}}</template>
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status==1?'success':'danger'">{{scope.row.status==1?'正常':'已暂停'}}</el-tag>
+        </template>
       </el-table-column>
+      <el-table-column prop="hasMobiles" label="最新执行状态">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.hasMobiles ==1?'success':'danger'"
+          >{{scope.row.hasMobiles==1?'有设备已执行':'缺设备'}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column prop="nextRunTime" label="下次执行" min-width="120" sortable></el-table-column>
       <el-table-column prop="cron" label="定时策略" sortable></el-table-column>
       <!-- <el-table-column prop="status" label="状态" sortable></el-table-column> -->
       <el-table-column>
@@ -48,7 +73,7 @@
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item @click.native="executeOnce(scope.row)">执行一次</el-dropdown-item>-->
+              <el-dropdown-item @click.native="executeOnce(scope.row.taskId)">执行一次</el-dropdown-item>
               <el-dropdown-item v-if="scope.row.status == 1" @click.native="pauseTask(scope.row)">停止</el-dropdown-item>
               <el-dropdown-item
                 v-else-if="scope.row.status == 0 "
@@ -136,9 +161,11 @@ import util from "@/utils/utilnew.js";
 import scheduleApi from "@/api/scheduletask/taskapi.js";
 import TestcaseList from "@/pages/autotest/percomponents/listTc";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import clipboard from "@/directives/clipboard/index.js";
 export default {
   // mixins: [TestcaseList],
   components: { TestcaseList },
+  directives: { clipboard },
   data() {
     return {
       productList: util.PRODUCTLIST,
@@ -183,6 +210,22 @@ export default {
   },
   methods: {
     ...mapMutations("autotest", ["setTestcaseList"]),
+
+    onCopy(e) {
+      this.$notify.success(e.text + "复制成功");
+    },
+    executeOnce(schedulerId) {
+      let params = { jobId: schedulerId };
+      scheduleApi
+        .executeSchedulerOnce(params)
+        .then(res => {
+          if (res.data.code == 0) {
+            this.$message.success("执行成功。");
+          }
+        })
+        .catch();
+    },
+
     clearToChoose() {
       let _this = this;
       _this.task.caseIds = [];

@@ -21,14 +21,19 @@
                   @row-click="getDetails"
                   :highlight-current-row="true"
                 >
-                  <el-table-column
-                    label="Task"
-                    prop="taskId"
-                    sortable
-                    align="center"
-                    min-width="80"
-                  />
+                  <el-table-column label="Task" prop="taskId" sortable align="center" width="80"></el-table-column>
+                  <el-table-column label="定时任务" prop="schedulerId" align="center" min-width="80">
+                    <template scope="{row}">
+                      <el-button
+                        type="text"
+                        slot="append"
+                        v-clipboard:copy="row.schedulerId"
+                        v-clipboard:success="onCopy"
+                      >{{row.schedulerId}}</el-button>
+                    </template>
+                  </el-table-column>
                   <el-table-column label="设备序列号" prop="mobileId" align="center" min-width="80"/>
+
                   <el-table-column
                     label="提交人"
                     prop="executor"
@@ -42,13 +47,13 @@
                     width="150"
                     show-overflow-tooltip
                   />
-                  <el-table-column
+                  <!-- <el-table-column
                     label="完成时间"
                     prop="endedTime"
                     align="center"
                     width="150"
                     show-overflow-tooltip
-                  />
+                  />-->
                   <el-table-column
                     label="通过"
                     prop="success"
@@ -251,9 +256,10 @@
 import tcApi from "@/api/testcase.js";
 import util from "@/utils/utilnew.js";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-
+import clipboard from "@/directives/clipboard/index.js";
 export default {
   name: "uitestReport",
+  directives: { clipboard },
   created() {
     this.getRunResults();
   },
@@ -281,6 +287,10 @@ export default {
     };
   },
   methods: {
+    onCopy(e) {
+      this.$notify.success(e.text + "复制成功");
+    },
+
     toUpper(item) {
       return util.convertFirstLettertoUpper(item);
     },
@@ -328,12 +338,15 @@ export default {
         mobileId: row.mobileId
       };
       tcApi.getDetailResult(params).then(res => {
-        if (res.data.code == 0) {
+        if (res.data.code == 0 && res.data.data.length != 0) {
           _this.itemDetails = res.data.data;
           _this.deviceInfo = _this.itemDetails[0].replayResult.deviceInfo;
           _this.showMobileInfo = true;
           _this.showStepsInfo = false;
           _this.leftSpan = 16;
+        } else {
+          _this.showMobileInfo = false;
+          _this.leftSpan = 24;
         }
       });
     },
